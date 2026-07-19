@@ -5113,7 +5113,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-organizers-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-news-title-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -7695,7 +7695,6 @@ function softenFrontendErrorMessage() {
  */
 function enhanceHomepageLabels() {
     const sectionMap = [
-        { keyword: "最新消息", eyebrow: "NEWS", desc: "掌握活動最新公告與重要提醒" },
         { keyword: "會議介紹", eyebrow: "ABOUT", desc: "了解本次活動目標、議題方向與參與價值" },
         { keyword: "講師介紹", eyebrow: "SPEAKERS", desc: "邀集專業講者分享產業觀點與實務經驗" },
         { keyword: "會議議程", eyebrow: "AGENDA", desc: "查看完整時程安排與各場次重點" },
