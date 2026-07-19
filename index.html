@@ -3628,13 +3628,39 @@ body {
 
 .agenda-item {
     display: grid !important;
-    grid-template-columns: minmax(128px, 180px) minmax(0, 1fr) !important;
+    grid-template-columns: minmax(128px, 170px) minmax(0, 1fr) minmax(180px, 240px) !important;
     gap: 0 !important;
     padding: 0 !important;
 }
 
 .agenda-content {
     min-width: 0 !important;
+}
+
+.agenda-columns {
+    display: grid;
+    grid-template-columns: minmax(128px, 170px) minmax(0, 1fr) minmax(180px, 240px);
+    background: #0b3557;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.agenda-column-heading {
+    padding: 13px 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.agenda-column-heading:last-child { border-right: none; }
+
+.agenda-speaker-cell {
+    min-width: 0;
+    padding: 22px 24px;
+    border-left: 1px solid var(--border-color);
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 @media (max-width: 520px) {
@@ -3644,19 +3670,36 @@ body {
     }
 
     .agenda-item {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 88px minmax(0, 1fr) 92px !important;
+    }
+
+    .agenda-columns {
+        grid-template-columns: 88px minmax(0, 1fr) 92px;
+        font-size: 12px;
+    }
+
+    .agenda-column-heading {
+        padding: 10px 8px;
     }
 
     .agenda-time {
-        justify-content: flex-start !important;
-        border-right: none !important;
-        border-bottom: 1px solid #dbeafe !important;
-        padding: 14px 18px !important;
-        text-align: left !important;
+        justify-content: center !important;
+        border-right: 1px solid #dbeafe !important;
+        border-bottom: none !important;
+        padding: 14px 8px !important;
+        text-align: center !important;
     }
 
     .agenda-content {
-        padding: 18px !important;
+        padding: 14px 10px !important;
+    }
+
+    .agenda-title { font-size: 14px !important; }
+    .agenda-notes { font-size: 12px !important; }
+
+    .agenda-speaker-cell {
+        padding: 14px 8px;
+        font-size: 12px;
     }
 }
 
@@ -5070,7 +5113,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-traffic-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-agenda-columns-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -6134,10 +6177,14 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 <div class="agenda-day">
                     <div class="agenda-date">${escapeHtml(dateLabel)}</div>
                     <div class="agenda-table">
+                        <div class="agenda-columns">
+                            <div class="agenda-column-heading">${lang === 'zh' ? '時間' : 'Time'}</div>
+                            <div class="agenda-column-heading">${lang === 'zh' ? '議程' : 'Agenda'}</div>
+                            <div class="agenda-column-heading">${lang === 'zh' ? '講者' : 'Speaker'}</div>
+                        </div>
                         ${items.map(item => {
                             const title = lang === 'zh' ? item.title_zh : item.title_en;
                             const speaker = lang === 'zh' ? item.speaker_zh : item.speaker_en;
-                            const location = lang === 'zh' ? item.location_zh : item.location_en;
                             const notes = lang === 'zh' ? item.notes_zh : item.notes_en;
                             const startTime = formatAgendaTime(item.start_time);
                             const endTime = formatAgendaTime(item.end_time);
@@ -6148,10 +6195,9 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                                     <div class="agenda-time">${escapeHtml(timeRange || '-')}</div>
                                     <div class="agenda-content">
                                         <div class="agenda-title">${escapeHtml(title || '-')}</div>
-                                        ${speaker ? `<div class="agenda-speaker">${escapeHtml(speaker)}</div>` : ''}
-                                        ${location ? `<div class="agenda-location">${escapeHtml(location)}</div>` : ''}
                                         ${notes ? `<div class="agenda-notes">${escapeHtml(notes)}</div>` : ''}
                                     </div>
+                                    <div class="agenda-speaker-cell">${escapeHtml(speaker || '-')}</div>
                                 </div>
                             `;
                         }).join('')}
