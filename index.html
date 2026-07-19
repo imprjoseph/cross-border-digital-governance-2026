@@ -5070,7 +5070,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260708-speed-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-display-fix-v2`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -5336,11 +5336,14 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         function checkSiteStatus() {
             const status = siteData.settings.site_status;
 
-            if (status === 'draft') {
+            if (status === 'draft' || status === 'maintenance') {
                 showDraftPage();
             } else if (status === 'closed') {
                 showClosedPage();
             } else if (status === 'live') {
+                showLiveContent();
+            } else {
+                // 未知或空白狀態仍顯示網站，避免整個主要內容消失。
                 showLiveContent();
             }
         }
