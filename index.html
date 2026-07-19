@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會議活動官方網站</title>
+    <title>2026科技主權高峰論壇</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
     <!-- imPR-conf-v7 + homepage-formal-inline-20260529 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -5644,6 +5644,10 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         // 更新 Hero 區塊
         function updateHero() {
             const settings = siteData.settings;
+
+            document.title = currentLang === 'zh'
+                ? (settings.conference_title_zh || CONFERENCE_CONFIG.siteTitle || '2026科技主權高峰論壇')
+                : (settings.conference_title_en || settings.conference_title_zh || CONFERENCE_CONFIG.siteTitle || '2026 Technology Sovereignty Summit');
 
             document.getElementById('site-title').textContent = currentLang === 'zh' ?
                 settings.conference_title_zh || '會議活動' :
