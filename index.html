@@ -5113,7 +5113,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-single-language-headings-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-security-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -6608,6 +6608,9 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 }</div>
                 <form id="reg-form" novalidate>
                     ${fieldsHtml}
+                    <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+                        <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                    </div>
                     <div class="reg-privacy-check">
                         <input type="checkbox" id="reg-privacy-cb">
                         <label for="reg-privacy-cb">
@@ -6705,7 +6708,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 
             try {
                 const params = new URLSearchParams({ action: 'saveRegistrant', ...data });
-                const res = await fetch(`${activeApiBaseUrl}?${params}`, { redirect: 'follow' });
+                const res = await fetch(activeApiBaseUrl, { method: 'POST', body: params, redirect: 'follow' });
                 const json = await res.json();
 
                 if (json.success) {
@@ -7300,8 +7303,8 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 const result = document.getElementById('subscribe-result');
                 if (!email) { result.textContent = '請輸入 Email'; return; }
                 try {
-                    const url = `${activeApiBaseUrl}?action=saveSubscriber&email=${encodeURIComponent(email)}`;
-                    const res = await fetch(url, {method:'GET',redirect:'follow'});
+                    const params = new URLSearchParams({ action: 'saveSubscriber', email, language: currentLang, website: '' });
+                    const res = await fetch(activeApiBaseUrl, {method:'POST',body:params,redirect:'follow'});
                     const data = await res.json();
                     result.textContent = data.success ? (currentLang==='zh'?'✅ 訂閱成功！感謝您的關注':'✅ Subscribed successfully!') : '❌ ' + data.error;
                     if (data.success) document.getElementById('subscribe-email').value = '';

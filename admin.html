@@ -1433,6 +1433,7 @@
     <script>
         // 全域變數
         let currentUser = null;
+        let adminToken = sessionStorage.getItem('conferenceAdminToken') || '';
         let currentSection = 'settings';
         let editData = null;
         let editType = null;
@@ -1454,19 +1455,19 @@
 
         let activeApiBaseUrl = getApiUrl();
 
-        // ★ CORS 修正：所有請求統一走 GET，payload 放在 URL 參數
-        // GAS Web App 不支援帶 Content-Type 的 preflight，故廢除 POST
         async function apiFetch(action, init = {}) {
-            let url = `${activeApiBaseUrl}?action=${action}`;
-
-            // 若原本是 POST + body，改為 GET + payload 參數
+            let response;
             if (init.body) {
-                const payloadStr = encodeURIComponent(init.body);
-                url += `&payload=${payloadStr}`;
+                const payload = JSON.parse(init.body);
+                if (adminToken && action !== 'adminLogin') payload.adminToken = adminToken;
+                const body = new URLSearchParams({ action, payload: JSON.stringify(payload) });
+                response = await fetch(activeApiBaseUrl, { method: 'POST', body, redirect: 'follow' });
+            } else {
+                const url = `${activeApiBaseUrl}?action=${encodeURIComponent(action)}`;
+                response = await fetch(url, { method: 'GET', redirect: 'follow' });
             }
 
             try {
-                const response = await fetch(url, { method: 'GET', redirect: 'follow' });
                 if (!response.ok) {
                     throw new Error(`API ${action} 失敗: ${response.status} ${response.statusText}`);
                 }
@@ -1507,6 +1508,8 @@
 
                     if (data.success) {
                         currentUser = data.user;
+                        adminToken = data.adminToken || '';
+                        sessionStorage.setItem('conferenceAdminToken', adminToken);
                         showAdminPage();
                         loadSettings();
                     } else {
@@ -1544,8 +1547,15 @@
                 });
             });
 
-            logoutBtn.addEventListener('click', () => {
+            logoutBtn.addEventListener('click', async () => {
+                if (adminToken) {
+                    try {
+                        await apiFetch('adminLogout', { body: JSON.stringify({ action: 'adminLogout' }) });
+                    } catch (error) { /* 本機仍會清除登入狀態 */ }
+                }
                 currentUser = null;
+                adminToken = '';
+                sessionStorage.removeItem('conferenceAdminToken');
                 document.getElementById('admin-page').classList.add('hidden');
                 document.getElementById('login-page').classList.remove('hidden');
                 document.getElementById('login-form').reset();
@@ -1913,10 +1923,9 @@
 
             // 先試 saveSettings（一次傳全部），若失敗再逐筆用 saveSingleSetting
             try {
-                const payload = { action: 'saveSettings', settings };
-                const url = `${activeApiBaseUrl}?action=saveSettings&payload=${encodeURIComponent(JSON.stringify(payload))}`;
-                const res = await fetch(url, { method: 'GET', redirect: 'follow' });
-                const data = await res.json();
+                const data = await apiFetch('saveSettings', {
+                    body: JSON.stringify({ action: 'saveSettings', settings })
+                });
 
                 if (data && data.success) {
                     showToast('設定已成功寫入 Google Sheets', 'success', '✅ 儲存完成');
@@ -1933,9 +1942,9 @@
                 let saved = 0;
                 for (const [key, value] of pairs) {
                     try {
-                        const url = `${activeApiBaseUrl}?action=saveSingleSetting&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`;
-                        const res = await fetch(url, { method: 'GET', redirect: 'follow' });
-                        const data = await res.json();
+                        const data = await apiFetch('saveSingleSetting', {
+                            body: JSON.stringify({ action: 'saveSingleSetting', key, value })
+                        });
                         if (data && data.success) saved++;
                     } catch (e) { /* 跳過單筆錯誤 */ }
                 }
@@ -2483,15 +2492,11 @@
         // ── 通用 CRUD 輔助 ──
         async function adminApiSave(action, dataKey, dataObj) {
             const payload = { action }; payload[dataKey] = dataObj;
-            const url = `${activeApiBaseUrl}?action=${action}&payload=${encodeURIComponent(JSON.stringify(payload))}`;
-            const res = await fetch(url,{method:'GET',redirect:'follow'});
-            return res.json();
+            return apiFetch(action, { body: JSON.stringify(payload) });
         }
         async function adminApiDelete(sheetName, id) {
             const payload = {action:'deleteRow',sheetName,id};
-            const url = `${activeApiBaseUrl}?action=deleteRow&payload=${encodeURIComponent(JSON.stringify(payload))}`;
-            const res = await fetch(url,{method:'GET',redirect:'follow'});
-            return res.json();
+            return apiFetch('deleteRow', { body: JSON.stringify(payload) });
         }
 
         // ─── 贊助商管理 ───
@@ -2765,9 +2770,9 @@
                 is_visible: document.getElementById('news-is-visible').checked
             };
             try {
-                const url = `${activeApiBaseUrl}?action=saveNews&payload=${encodeURIComponent(JSON.stringify({ action:'saveNews', news: item }))}`;
-                const res = await fetch(url, { method: 'GET', redirect: 'follow' });
-                const data = await res.json();
+                const data = await apiFetch('saveNews', {
+                    body: JSON.stringify({ action:'saveNews', news: item })
+                });
                 if (data.success) {
                     showMessage('✅ 消息已儲存', 'success');
                     closeNewsModal();
@@ -2783,9 +2788,9 @@
         async function deleteNewsItem(id) {
             if (!confirm('確定要刪除這則消息嗎？')) return;
             try {
-                const url = `${activeApiBaseUrl}?action=deleteRow&payload=${encodeURIComponent(JSON.stringify({ action:'deleteRow', sheetName:'News', id }))}`;
-                const res = await fetch(url, { method: 'GET', redirect: 'follow' });
-                const data = await res.json();
+                const data = await apiFetch('deleteRow', {
+                    body: JSON.stringify({ action:'deleteRow', sheetName:'News', id })
+                });
                 if (data.success) {
                     showMessage('✅ 已刪除', 'success');
                     loadNewsAdmin();
@@ -2867,8 +2872,9 @@
                     if (!confirm('⚠️ 初始化將清空並重建所有工作表資料，確定要繼續嗎？')) return;
                     try {
                         showMessage('正在初始化工作表...', 'info');
-                        const res = await fetch(`${getApiUrl()}?action=initSheets`);
-                        const data = await res.json();
+                        const data = await apiFetch('initSheets', {
+                            body: JSON.stringify({ action: 'initSheets' })
+                        });
                         showMessage(data.success ? '✅ 工作表初始化完成！' : '❌ ' + data.error, data.success ? 'success' : 'error');
                     } catch (err) {
                         showMessage('初始化失敗：' + err.message, 'error');
