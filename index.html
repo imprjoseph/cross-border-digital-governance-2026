@@ -3663,19 +3663,23 @@ body {
     line-height: 1.5;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
     .agenda-date {
         padding: 16px 18px !important;
         font-size: 16px !important;
     }
 
     .agenda-item {
-        grid-template-columns: 88px minmax(0, 1fr) 92px !important;
+        grid-template-columns: 82px minmax(0, 1fr) !important;
     }
 
     .agenda-columns {
-        grid-template-columns: 88px minmax(0, 1fr) 92px;
+        grid-template-columns: 82px minmax(0, 1fr);
         font-size: 12px;
+    }
+
+    .agenda-column-heading:nth-child(3) {
+        display: none;
     }
 
     .agenda-column-heading {
@@ -3683,11 +3687,15 @@ body {
     }
 
     .agenda-time {
+        grid-row: 1 / span 2;
+        min-width: 0 !important;
         justify-content: center !important;
         border-right: 1px solid #dbeafe !important;
         border-bottom: none !important;
         padding: 14px 8px !important;
         text-align: center !important;
+        white-space: normal;
+        overflow-wrap: anywhere;
     }
 
     .agenda-content {
@@ -3698,8 +3706,23 @@ body {
     .agenda-notes { font-size: 12px !important; }
 
     .agenda-speaker-cell {
-        padding: 14px 8px;
+        grid-column: 2;
+        min-width: 0;
+        padding: 0 10px 14px;
+        border-left: none;
+        border-top: 1px dashed var(--border-color);
         font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .agenda-speaker-cell::before {
+        content: '講者：';
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    html[lang="en"] .agenda-speaker-cell::before {
+        content: 'Speaker: ';
     }
 }
 
@@ -5113,7 +5136,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-faq-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-mobile-agenda-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
