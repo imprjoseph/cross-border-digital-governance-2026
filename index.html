@@ -4997,13 +4997,13 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 <!-- 快速連結 -->
                 <div class="footer-col">
                     <h4 data-zh="快速連結" data-en="Quick Links">快速連結</h4>
-                    <ul>
-                        <li><i class="fas fa-newspaper"></i><a href="#news" data-zh="最新消息" data-en="News">最新消息</a></li>
-                        <li><i class="fas fa-info-circle"></i><a href="#about" data-zh="會議介紹" data-en="About">會議介紹</a></li>
-                        <li><i class="fas fa-users"></i><a href="#speakers" data-zh="講師介紹" data-en="Speakers">講師介紹</a></li>
-                        <li><i class="fas fa-calendar"></i><a href="#agenda" data-zh="會議議程" data-en="Agenda">會議議程</a></li>
-                        <li><i class="fas fa-edit"></i><a href="#" onclick="scrollToRegForm();return false;" data-zh="線上報名" data-en="Register">線上報名</a></li>
-                        <li><i class="fas fa-map"></i><a href="#traffic" data-zh="交通資訊" data-en="Transportation">交通資訊</a></li>
+                    <ul id="footer-quick-links">
+                        <li><i class="fas fa-newspaper"></i><a href="#news" data-section="news" data-zh="最新消息" data-en="News">最新消息</a></li>
+                        <li><i class="fas fa-info-circle"></i><a href="#about" data-section="about" data-zh="會議介紹" data-en="About">會議介紹</a></li>
+                        <li><i class="fas fa-users"></i><a href="#speakers" data-section="speakers" data-zh="講師介紹" data-en="Speakers">講師介紹</a></li>
+                        <li><i class="fas fa-calendar"></i><a href="#agenda" data-section="agenda" data-zh="會議議程" data-en="Agenda">會議議程</a></li>
+                        <li><i class="fas fa-edit"></i><a href="#" data-section="register" onclick="scrollToRegForm();return false;" data-zh="線上報名" data-en="Register">線上報名</a></li>
+                        <li><i class="fas fa-map"></i><a href="#traffic" data-section="traffic" data-zh="交通資訊" data-en="Transportation">交通資訊</a></li>
                         <li><i class="fas fa-download"></i><a href="#" data-section="downloads" onclick="openDownloads();return false;" data-zh="下載專區" data-en="Downloads">下載專區</a></li>
                         <li><i class="fas fa-images"></i><a href="#" data-section="past_events" onclick="openPastEventsAlbum(event)" data-zh="歷年會議" data-en="Past Events">歷年會議</a></li>
                     </ul>
@@ -5113,7 +5113,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-about-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-quick-links-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -6829,6 +6829,16 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             return val === false || val === 'false' || val === 'FALSE' || val === '0';
         }
 
+        function setSectionLinksVisibility(selector, visible) {
+            document.querySelectorAll(selector).forEach(el => {
+                el.style.setProperty('display', visible ? '' : 'none', 'important');
+                const quickLinkItem = el.closest('#footer-quick-links > li');
+                if (quickLinkItem) {
+                    quickLinkItem.style.setProperty('display', visible ? '' : 'none', 'important');
+                }
+            });
+        }
+
         function applySectionSwitches() {
             const s = siteData.settings || {};
 
@@ -6836,20 +6846,27 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             const showSponsors = !settingIsFalse(s.show_sponsors);
             const sponsorsSec = document.getElementById('sponsors-section');
             if (sponsorsSec) sponsorsSec.style.setProperty('display', showSponsors ? '' : 'none', 'important');
-            document.querySelectorAll('a[data-section="sponsors"], a[href="#sponsors"]')
-                .forEach(el => { el.style.setProperty('display', showSponsors ? '' : 'none', 'important'); });
+            setSectionLinksVisibility('a[data-section="sponsors"], a[href="#sponsors"]', showSponsors);
 
             // 下載專區
             const showDl = !settingIsFalse(s.show_downloads);
-            document.querySelectorAll('a[data-section="downloads"]')
-                .forEach(el => { el.style.setProperty('display', showDl ? '' : 'none', 'important'); });
+            setSectionLinksVisibility('a[data-section="downloads"]', showDl);
 
             // 歷年會議
             const showPast = !settingIsFalse(s.show_past_events);
             const pastNavLink = document.getElementById('past-events-nav-link');
             if (pastNavLink) pastNavLink.style.setProperty('display', showPast ? '' : 'none', 'important');
-            document.querySelectorAll('a[data-section="past_events"]')
-                .forEach(el => { el.style.setProperty('display', showPast ? '' : 'none', 'important'); });
+            setSectionLinksVisibility('a[data-section="past_events"]', showPast);
+
+            // Quick Links：關閉功能時，整個項目（含圖示）一起隱藏
+            [
+                ['news', 'show_news'],
+                ['speakers', 'show_speakers'],
+                ['agenda', 'show_agenda'],
+                ['traffic', 'show_traffic']
+            ].forEach(([section, setting]) => {
+                setSectionLinksVisibility(`#footer-quick-links a[data-section="${section}"]`, !settingIsFalse(s[setting]));
+            });
         }
 
         function updateContent() {
