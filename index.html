@@ -5113,7 +5113,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-news-title-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260719-single-language-headings-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -7694,14 +7694,18 @@ function softenFrontendErrorMessage() {
  * 06. 區塊標題微調
  */
 function enhanceHomepageLabels() {
+    document.querySelectorAll(".section-eyebrow").forEach(function (eyebrow) {
+        eyebrow.remove();
+    });
+
     const sectionMap = [
-        { keyword: "會議介紹", eyebrow: "ABOUT", desc: "了解本次活動目標、議題方向與參與價值" },
-        { keyword: "講師介紹", eyebrow: "SPEAKERS", desc: "邀集專業講者分享產業觀點與實務經驗" },
-        { keyword: "會議議程", eyebrow: "AGENDA", desc: "查看完整時程安排與各場次重點" },
-        { keyword: "線上報名", eyebrow: "REGISTRATION", desc: "填寫報名資料，完成活動參與登記" },
-        { keyword: "交通資訊", eyebrow: "VENUE", desc: "活動地點、交通方式與現場資訊" },
-        { keyword: "下載專區", eyebrow: "DOWNLOAD", desc: "下載會議簡章、講義與相關文件" },
-        { keyword: "常見問題", eyebrow: "FAQ", desc: "快速查詢活動報名與參與相關問題" }
+        { keyword: "會議介紹", desc: "了解本次活動目標、議題方向與參與價值" },
+        { keyword: "講師介紹", desc: "邀集專業講者分享產業觀點與實務經驗" },
+        { keyword: "會議議程", desc: "查看完整時程安排與各場次重點" },
+        { keyword: "線上報名", desc: "填寫報名資料，完成活動參與登記" },
+        { keyword: "交通資訊", desc: "活動地點、交通方式與現場資訊" },
+        { keyword: "下載專區", desc: "下載會議簡章、講義與相關文件" },
+        { keyword: "常見問題", desc: "快速查詢活動報名與參與相關問題" }
     ];
 
     sectionMap.forEach(function (item) {
@@ -7712,13 +7716,6 @@ function enhanceHomepageLabels() {
 
             const titleWrap = h2.closest(".section-title");
             if (!titleWrap) return;
-
-            if (!titleWrap.querySelector(".section-eyebrow")) {
-                const eyebrow = document.createElement("div");
-                eyebrow.className = "section-eyebrow";
-                eyebrow.textContent = item.eyebrow;
-                titleWrap.insertBefore(eyebrow, h2);
-            }
 
             const p = titleWrap.querySelector("p");
             if (p && (!p.textContent || p.textContent.trim().length < 18)) {
