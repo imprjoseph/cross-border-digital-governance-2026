@@ -3635,6 +3635,22 @@ body {
 
 .agenda-content {
     min-width: 0 !important;
+    padding: 14px 18px !important;
+}
+
+.agenda-time {
+    min-width: 0 !important;
+    padding: 14px 12px !important;
+}
+
+.agenda-title {
+    margin-bottom: 4px !important;
+    line-height: 1.4 !important;
+}
+
+.agenda-notes {
+    margin-top: 3px !important;
+    line-height: 1.4 !important;
 }
 
 .agenda-columns {
@@ -3647,7 +3663,7 @@ body {
 }
 
 .agenda-column-heading {
-    padding: 13px 20px;
+    padding: 10px 16px;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -3655,7 +3671,7 @@ body {
 
 .agenda-speaker-cell {
     min-width: 0;
-    padding: 22px 24px;
+    padding: 14px 16px;
     border-left: 1px solid var(--border-color);
     color: var(--primary-color);
     font-size: 14px;
@@ -5145,7 +5161,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-mobile-agenda-compact-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-agenda-compact-v2`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
