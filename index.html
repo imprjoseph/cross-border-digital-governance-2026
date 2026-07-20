@@ -3683,7 +3683,7 @@ body {
     }
 
     .agenda-column-heading {
-        padding: 10px 8px;
+        padding: 8px 7px;
     }
 
     .agenda-time {
@@ -3692,26 +3692,35 @@ body {
         justify-content: center !important;
         border-right: 1px solid #dbeafe !important;
         border-bottom: none !important;
-        padding: 14px 8px !important;
+        padding: 10px 6px !important;
         text-align: center !important;
         white-space: normal;
         overflow-wrap: anywhere;
     }
 
     .agenda-content {
-        padding: 14px 10px !important;
+        padding: 10px 8px 8px !important;
     }
 
-    .agenda-title { font-size: 14px !important; }
-    .agenda-notes { font-size: 12px !important; }
+    .agenda-title {
+        margin-bottom: 4px !important;
+        font-size: 14px !important;
+        line-height: 1.35 !important;
+    }
+    .agenda-notes {
+        margin-top: 3px !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+    }
 
     .agenda-speaker-cell {
         grid-column: 2;
         min-width: 0;
-        padding: 0 10px 14px;
+        padding: 6px 8px 9px;
         border-left: none;
         border-top: 1px dashed var(--border-color);
         font-size: 12px;
+        line-height: 1.35;
         overflow-wrap: anywhere;
     }
 
@@ -5136,7 +5145,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-mobile-agenda-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-mobile-agenda-compact-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
