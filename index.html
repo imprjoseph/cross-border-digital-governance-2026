@@ -3621,26 +3621,61 @@ body {
 
 .agenda-container {
     display: grid !important;
-    gap: 24px !important;
+    gap: 18px !important;
     padding: 0 !important;
     margin-top: 22px !important;
 }
 
+.agenda-day {
+    overflow: hidden !important;
+    border: 1px solid #86cdd0 !important;
+    border-radius: 0 !important;
+    background: #f2fbfb !important;
+    box-shadow: none !important;
+}
+
+.agenda-date {
+    padding: 10px 14px !important;
+    border-bottom: 1px solid #86cdd0 !important;
+    background: #fff !important;
+    color: #173847 !important;
+    font-size: 15px !important;
+    text-align: center;
+}
+
 .agenda-item {
     display: grid !important;
-    grid-template-columns: minmax(128px, 170px) minmax(0, 1fr) minmax(180px, 240px) !important;
+    grid-template-columns: 150px minmax(0, 1.45fr) minmax(240px, .9fr) !important;
     gap: 0 !important;
     padding: 0 !important;
+    border-bottom: 1px solid #9bd4d6 !important;
+    background: #f2fbfb !important;
+}
+
+.agenda-item:hover {
+    background: #eaf8f8 !important;
+}
+
+.agenda-item--no-speaker .agenda-content {
+    grid-column: 2 / 4;
+    border-right: none !important;
 }
 
 .agenda-content {
     min-width: 0 !important;
-    padding: 14px 18px !important;
+    padding: 12px 14px !important;
+    border-right: 1px solid #9bd4d6 !important;
 }
 
 .agenda-time {
     min-width: 0 !important;
-    padding: 14px 12px !important;
+    padding: 12px 10px !important;
+    border-right: 1px solid #9bd4d6 !important;
+    background: #f2fbfb !important;
+    color: #182d36 !important;
+    font-weight: 700 !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
 .agenda-title {
@@ -3651,38 +3686,41 @@ body {
 .agenda-notes {
     margin-top: 3px !important;
     line-height: 1.4 !important;
+    color: #38515a !important;
+    font-style: normal !important;
 }
 
 .agenda-columns {
     display: grid;
-    grid-template-columns: minmax(128px, 170px) minmax(0, 1fr) minmax(180px, 240px);
-    background: #0b3557;
-    color: #fff;
+    grid-template-columns: 150px minmax(0, 1.45fr) minmax(240px, .9fr);
+    border-bottom: 1px solid #86cdd0;
+    background: #bce8e9;
+    color: #17323d;
     font-size: 14px;
     font-weight: 700;
 }
 
 .agenda-column-heading {
     padding: 10px 16px;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid #86cdd0;
 }
 
 .agenda-column-heading:last-child { border-right: none; }
 
 .agenda-speaker-cell {
     min-width: 0;
-    padding: 14px 16px;
-    border-left: 1px solid var(--border-color);
-    color: var(--primary-color);
+    padding: 12px 14px;
+    border-left: none;
+    color: #182d36;
     font-size: 14px;
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 @media (max-width: 640px) {
     .agenda-date {
-        padding: 16px 18px !important;
-        font-size: 16px !important;
+        padding: 9px 12px !important;
+        font-size: 14px !important;
     }
 
     .agenda-item {
@@ -3706,7 +3744,7 @@ body {
         grid-row: 1 / span 2;
         min-width: 0 !important;
         justify-content: center !important;
-        border-right: 1px solid #dbeafe !important;
+        border-right: 1px solid #9bd4d6 !important;
         border-bottom: none !important;
         padding: 10px 6px !important;
         text-align: center !important;
@@ -3716,6 +3754,7 @@ body {
 
     .agenda-content {
         padding: 10px 8px 8px !important;
+        border-right: none !important;
     }
 
     .agenda-title {
@@ -3734,10 +3773,18 @@ body {
         min-width: 0;
         padding: 6px 8px 9px;
         border-left: none;
-        border-top: 1px dashed var(--border-color);
+        border-top: 1px solid #b7dddf;
         font-size: 12px;
         line-height: 1.35;
         overflow-wrap: anywhere;
+    }
+
+    .agenda-item--no-speaker .agenda-time {
+        grid-row: 1;
+    }
+
+    .agenda-item--no-speaker .agenda-content {
+        grid-column: 2;
     }
 
     .agenda-speaker-cell::before {
@@ -5161,7 +5208,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260720-agenda-compact-v2`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260724-agenda-table-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -6235,7 +6282,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                     <div class="agenda-date">${escapeHtml(dateLabel)}</div>
                     <div class="agenda-table">
                         <div class="agenda-columns">
-                            <div class="agenda-column-heading">${lang === 'zh' ? '時間' : 'Time'}</div>
+                            <div class="agenda-column-heading">${lang === 'zh' ? '時間 (GMT+8)' : 'Time (GMT+8)'}</div>
                             <div class="agenda-column-heading">${lang === 'zh' ? '議程' : 'Agenda'}</div>
                             <div class="agenda-column-heading">${lang === 'zh' ? '講者' : 'Speaker'}</div>
                         </div>
@@ -6246,15 +6293,17 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                             const startTime = formatAgendaTime(item.start_time);
                             const endTime = formatAgendaTime(item.end_time);
                             const timeRange = `${startTime || ''}${endTime ? ` - ${endTime}` : ''}`;
+                            const hasSpeaker = Boolean(String(speaker || '').trim());
+                            const mergeSpeaker = !hasSpeaker && ['registration', 'break', 'transition'].includes(item.type);
 
                             return `
-                                <div class="agenda-item">
+                                <div class="agenda-item${mergeSpeaker ? ' agenda-item--no-speaker' : ''}">
                                     <div class="agenda-time">${escapeHtml(timeRange || '-')}</div>
                                     <div class="agenda-content">
                                         <div class="agenda-title">${escapeHtml(title || '-')}</div>
                                         ${notes ? `<div class="agenda-notes">${escapeHtml(notes)}</div>` : ''}
                                     </div>
-                                    <div class="agenda-speaker-cell">${escapeHtml(speaker || '-')}</div>
+                                    ${mergeSpeaker ? '' : `<div class="agenda-speaker-cell">${escapeHtml(speaker || '-')}</div>`}
                                 </div>
                             `;
                         }).join('')}
