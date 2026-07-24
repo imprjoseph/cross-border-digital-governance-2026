@@ -4743,7 +4743,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 <a href="#register-section" class="navbar-link" data-section="register" data-zh="線上報名" data-en="Register" onclick="scrollToRegForm();return false;">線上報名</a>
                 <a href="#traffic" class="navbar-link" data-section="traffic" data-zh="交通資訊" data-en="Transportation">交通資訊</a>
                 <a href="#sponsors" class="navbar-link" data-section="sponsors" data-zh="贊助單位" data-en="Sponsors">贊助單位</a>
-                <a href="#" class="navbar-link" data-section="downloads" data-zh="下載專區" data-en="Downloads" onclick="openDownloads();return false;">下載專區</a>
+                <a href="#" class="navbar-link" data-section="downloads" data-zh="下載專區" data-en="Downloads" onclick="openDownloads();return false;" style="display:none;">下載專區</a>
                 <a href="#faq" class="navbar-link" data-section="faq" data-zh="常見問題" data-en="FAQ">常見問題</a>
                 <a href="#" class="navbar-link" id="past-events-nav-link" data-section="past_events" data-zh="歷年會議" data-en="Past Events" onclick="openPastEventsAlbum(event)">歷年會議</a>
                 <div class="language-switch">
@@ -5099,7 +5099,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                         <li><i class="fas fa-calendar"></i><a href="#agenda" data-section="agenda" data-zh="會議議程" data-en="Agenda">會議議程</a></li>
                         <li><i class="fas fa-edit"></i><a href="#" data-section="register" onclick="scrollToRegForm();return false;" data-zh="線上報名" data-en="Register">線上報名</a></li>
                         <li><i class="fas fa-map"></i><a href="#traffic" data-section="traffic" data-zh="交通資訊" data-en="Transportation">交通資訊</a></li>
-                        <li><i class="fas fa-download"></i><a href="#" data-section="downloads" onclick="openDownloads();return false;" data-zh="下載專區" data-en="Downloads">下載專區</a></li>
+                        <li style="display:none;"><i class="fas fa-download"></i><a href="#" data-section="downloads" onclick="openDownloads();return false;" data-zh="下載專區" data-en="Downloads" style="display:none;">下載專區</a></li>
                         <li><i class="fas fa-images"></i><a href="#" data-section="past_events" onclick="openPastEventsAlbum(event)" data-zh="歷年會議" data-en="Past Events">歷年會議</a></li>
                     </ul>
                 </div>
@@ -5208,7 +5208,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260724-agenda-table-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260724-download-visibility-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -6522,8 +6522,8 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         // ── 下載專區：直接開 Google Drive 連結 ──
         function openDownloads() {
             const s = siteData.settings || {};
-            // show_downloads = 'false' 時不動作
-            if (s.show_downloads === 'false') return;
+            // 設定未載入或 show_downloads 為 false 時均不允許開啟
+            if (!Object.prototype.hasOwnProperty.call(s, 'show_downloads') || settingIsFalse(s.show_downloads)) return;
             const items = siteData.downloads || [];
             if (items.length === 1) {
                 window.open(items[0].file_url, '_blank', 'noopener');
@@ -6923,7 +6923,9 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         // ── Section 顯示開關：settings 載入後立即套用 ──
         // 判斷 setting 值是否為 false（支援字串 'false' 和布林 false）
         function settingIsFalse(val) {
-            return val === false || val === 'false' || val === 'FALSE' || val === '0';
+            if (val === false || val === 0) return true;
+            const normalized = String(val ?? '').trim().toLowerCase();
+            return normalized === 'false' || normalized === '0' || normalized === 'no' || normalized === 'off';
         }
 
         function setSectionLinksVisibility(selector, visible) {
@@ -6946,8 +6948,10 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             setSectionLinksVisibility('a[data-section="sponsors"], a[href="#sponsors"]', showSponsors);
 
             // 下載專區
-            const showDl = !settingIsFalse(s.show_downloads);
+            const showDl = Object.prototype.hasOwnProperty.call(s, 'show_downloads') && !settingIsFalse(s.show_downloads);
             setSectionLinksVisibility('a[data-section="downloads"]', showDl);
+            const downloadsSec = document.getElementById('downloads-section');
+            if (downloadsSec) downloadsSec.style.setProperty('display', showDl ? '' : 'none', 'important');
 
             // 歷年會議
             const showPast = !settingIsFalse(s.show_past_events);
