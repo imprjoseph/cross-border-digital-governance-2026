@@ -4134,7 +4134,6 @@ body {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
     grid-template-areas:
-        "title title"
         "subtitle subtitle"
         "meta actions" !important;
     column-gap: 16px !important;
@@ -4193,7 +4192,6 @@ html[lang="en"] .hero-left,
 body.lang-en .hero-left {
     grid-template-columns: minmax(0, 1fr) auto !important;
     grid-template-areas:
-        "title actions"
         "subtitle actions"
         "meta meta" !important;
     align-items: center !important;
@@ -4290,7 +4288,6 @@ body.lang-en .hero-actions {
     .hero-left {
         grid-template-columns: 1fr !important;
         grid-template-areas:
-            "title"
             "subtitle"
             "meta"
             "actions" !important;
@@ -4306,6 +4303,65 @@ body.lang-en .hero-actions {
         width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
+    }
+}
+
+/* Banner 下方只保留副標題、時間與地點；加強活動資訊層級 */
+.hero-meta {
+    gap: 14px !important;
+}
+
+.hero-meta-item {
+    min-width: 220px !important;
+    min-height: 76px !important;
+    padding: 13px 16px !important;
+}
+
+.hero-meta-icon {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+}
+
+.hero-meta-label {
+    margin-bottom: 3px !important;
+    font-size: 11px !important;
+    letter-spacing: .1em !important;
+}
+
+.hero-meta-value {
+    font-size: clamp(18px, 1.55vw, 23px) !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+#hero-date {
+    white-space: nowrap !important;
+}
+
+@media (max-width: 640px) {
+    .hero-meta {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+    .hero-meta-item,
+    .hero-meta-item:has(#hero-location) {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 68px !important;
+        padding: 11px 13px !important;
+    }
+
+    .hero-meta-icon {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 18px !important;
+    }
+
+    .hero-meta-value {
+        font-size: 18px !important;
     }
 }
 
@@ -4820,7 +4876,6 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             <div class="hero-body-wrap">
             <div class="hero-body">
                 <div class="hero-left">
-                    <h1 class="hero-title" id="hero-title">會議名稱</h1>
                     <p class="hero-subtitle" id="hero-subtitle">會議副標題</p>
                     <div class="hero-meta">
                         <div class="hero-meta-item">
@@ -5208,7 +5263,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260724-download-visibility-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260728-hero-details-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -5747,10 +5802,6 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             document.getElementById('site-title').textContent = currentLang === 'zh' ?
                 settings.conference_title_zh || '會議活動' :
                 settings.conference_title_en || 'Conference';
-
-            document.getElementById('hero-title').textContent = currentLang === 'zh' ?
-                settings.conference_title_zh || '會議名稱' :
-                settings.conference_title_en || 'Conference Title';
 
             document.getElementById('hero-subtitle').textContent = currentLang === 'zh' ?
                 settings.conference_subtitle_zh || '會議副標題' :
