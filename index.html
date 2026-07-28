@@ -5920,7 +5920,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 names.forEach((name, index) => {
                     const nameEl = document.createElement('span');
                     nameEl.className = 'footer-org-name';
-                    nameEl.textContent = name;
+                    nameEl.textContent = index < names.length - 1 ? `${name}、` : name;
                     coOrganizerEl.append(nameEl);
                 });
             }
