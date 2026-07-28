@@ -4253,20 +4253,32 @@ body.lang-en .hero-actions {
     padding-bottom: 26px !important;
 }
 
-/* 頁尾主辦／協辦：桌機版保持單行，並增加右側文字的縮排 */
+/* Banner 下方只保留日期與地點 */
+.hero-subtitle {
+    display: none !important;
+}
+
+/* 頁尾主辦／協辦：單位名稱本身不拆行，單位之間可以換行 */
 @media (min-width: 861px) {
     .footer-organizers-col {
         transform: translateX(24px);
-        width: max-content;
-        max-width: none;
     }
 
-    #footer-organizer,
-    #footer-co-organizer {
+    #footer-organizer {
         display: inline-block;
         margin-left: 8px;
         white-space: nowrap;
     }
+
+    #footer-co-organizer {
+        margin-left: 8px;
+    }
+}
+
+.footer-org-name {
+    display: inline-block;
+    margin-right: .35em;
+    white-space: nowrap;
 }
 
 .footer-bottom {
@@ -5896,7 +5908,20 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             // 主辦 / 協辦
             const setSpan = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || '-'; };
             setSpan('footer-organizer', isEn ? (s.organizer_en || s.organizer_zh || '-') : (s.organizer_zh || '-'));
-            setSpan('footer-co-organizer', isEn ? (s.co_organizer_en || s.co_organizer_zh || '-') : (s.co_organizer_zh || '-'));
+            const coOrganizerEl = document.getElementById('footer-co-organizer');
+            const coOrganizerText = isEn
+                ? (s.co_organizer_en || s.co_organizer_zh || '-')
+                : (s.co_organizer_zh || '-');
+            if (coOrganizerEl) {
+                const names = String(coOrganizerText).split(/\s*\|\s*/).filter(Boolean);
+                coOrganizerEl.replaceChildren();
+                names.forEach((name, index) => {
+                    const nameEl = document.createElement('span');
+                    nameEl.className = 'footer-org-name';
+                    nameEl.textContent = index < names.length - 1 ? `${name} |` : name;
+                    coOrganizerEl.append(nameEl);
+                });
+            }
 
             // 聯絡資訊
             setSpan('footer-phone', s.contact_phone || '-');
