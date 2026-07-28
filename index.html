@@ -4253,6 +4253,22 @@ body.lang-en .hero-actions {
     padding-bottom: 26px !important;
 }
 
+/* 頁尾主辦／協辦：桌機版保持單行，並增加右側文字的縮排 */
+@media (min-width: 861px) {
+    .footer-organizers-col {
+        transform: translateX(24px);
+        width: max-content;
+        max-width: none;
+    }
+
+    #footer-organizer,
+    #footer-co-organizer {
+        display: inline-block;
+        margin-left: 8px;
+        white-space: nowrap;
+    }
+}
+
 .footer-bottom {
     padding: 12px 0 !important;
 }
@@ -5114,7 +5130,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 </div>
 
                 <!-- 主辦 / 協辦單位 -->
-                <div class="footer-col">
+                <div class="footer-col footer-organizers-col">
                     <h4 data-zh="主辦單位" data-en="Organizer">主辦單位</h4>
                     <!-- Logo 顯示（有設定時取代文字）-->
                     <div id="footer-organizer-logo-wrap"
