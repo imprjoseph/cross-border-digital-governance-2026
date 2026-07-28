@@ -4249,12 +4249,14 @@ body.lang-en .hero-actions {
 }
 
 .footer-grid {
+    grid-template-columns: 1.15fr 1.65fr .8fr .8fr !important;
     gap: 24px !important;
     padding-bottom: 26px !important;
 }
 
-/* Banner 下方只保留日期與地點 */
-.hero-subtitle {
+/* Banner 與頁尾只保留主要會議資訊，不顯示副標題 */
+.hero-subtitle,
+#footer-conf-subtitle {
     display: none !important;
 }
 
@@ -5918,7 +5920,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 names.forEach((name, index) => {
                     const nameEl = document.createElement('span');
                     nameEl.className = 'footer-org-name';
-                    nameEl.textContent = index < names.length - 1 ? `${name} |` : name;
+                    nameEl.textContent = name;
                     coOrganizerEl.append(nameEl);
                 });
             }
