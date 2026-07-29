@@ -4881,6 +4881,64 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     }
 }
 
+/* ===== Mobile Hero Layout Fix：標題歸位，地點依語意換行 ===== */
+.hero-left {
+    grid-template-areas:
+        "title title"
+        "subtitle subtitle"
+        "meta actions" !important;
+}
+
+html[lang="en"] .hero-left,
+body.lang-en .hero-left {
+    grid-template-areas:
+        "title title"
+        "subtitle actions"
+        "meta meta" !important;
+}
+
+.hero-title,
+.hero-meta-text,
+.hero-meta-value {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+@media (max-width: 860px) {
+    .hero-left,
+    html[lang="en"] .hero-left,
+    body.lang-en .hero-left {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-areas:
+            "title"
+            "subtitle"
+            "meta"
+            "actions" !important;
+    }
+
+    .hero-title {
+        width: 100% !important;
+        justify-self: stretch !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+    }
+}
+
+@media (max-width: 600px) {
+    #hero-location,
+    body.lang-zh #hero-location,
+    html[lang="zh-TW"] #hero-location {
+        word-break: keep-all !important;
+        overflow-wrap: normal !important;
+        text-wrap: balance;
+    }
+
+    .hero-meta-item:has(#hero-location) {
+        height: auto !important;
+        min-height: 96px !important;
+    }
+}
+
 </style>
 
 </head>
