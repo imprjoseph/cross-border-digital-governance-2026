@@ -4278,8 +4278,8 @@ body.lang-en .hero-actions {
 }
 
 .footer-org-name {
-    display: inline-block;
-    margin-right: .35em;
+    display: block;
+    margin: 0 0 .35em;
     white-space: nowrap;
 }
 
@@ -5936,12 +5936,12 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 ? (s.co_organizer_en || s.co_organizer_zh || '-')
                 : (s.co_organizer_zh || '-');
             if (coOrganizerEl) {
-                const names = String(coOrganizerText).split(/\s*\|\s*/).filter(Boolean);
+                const names = String(coOrganizerText).split(/\s*(?:\||、)\s*/).filter(Boolean);
                 coOrganizerEl.replaceChildren();
-                names.forEach((name, index) => {
+                names.forEach(name => {
                     const nameEl = document.createElement('span');
                     nameEl.className = 'footer-org-name';
-                    nameEl.textContent = index < names.length - 1 ? `${name}、` : name;
+                    nameEl.textContent = name;
                     coOrganizerEl.append(nameEl);
                 });
             }
