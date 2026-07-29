@@ -21,6 +21,7 @@
     <meta name="twitter:title" content="2026科技主權高峰論壇">
     <meta name="twitter:description" content="2026年8月31日，集思交通部國際會議中心。探討臺灣的產業、資料、文化與治理主權。">
     <meta name="twitter:image" content="https://techsovereignty.tw/assets/conference-banner-20260729.jpg">
+    <link rel="preload" as="image" href="assets/conference-banner-20260729.jpg" fetchpriority="high">
 
     <script type="application/ld+json">
     {
@@ -60,8 +61,15 @@
     <!-- imPR-conf-v7 + homepage-formal-inline-20260529 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </noscript>
     <style>
         /* CSS 樣式 */
         :root {
@@ -2789,6 +2797,12 @@
 
         .section { animation: fadeInUp 0.55s ease both; }
 
+        /* 首屏以外的內容延後繪製，縮短首次顯示時間。 */
+        .section {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 640px;
+        }
+
         
         /* ── Footer organizer logo ── */
         #footer-organizer-logo {
@@ -5056,9 +5070,13 @@ body.lang-en .hero-left {
         <section id="hero-section" class="hero hidden">
             <!-- ① Banner 圖：獨立全寬，文字完全在下方，不重疊 -->
             <div class="hero-banner" id="hero-image">
-                <div class="hero-banner-placeholder">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
+                <img class="hero-banner-img"
+                     src="assets/conference-banner-20260729.jpg"
+                     alt="2026科技主權高峰論壇"
+                     width="2400"
+                     height="750"
+                     decoding="async"
+                     fetchpriority="high">
             </div>
             <!-- ② 資訊列：Banner 正下方，左欄文字 + 右欄倒數 -->
             <div class="hero-body-wrap">
@@ -5617,14 +5635,31 @@ body.lang-en .hero-left {
             initSubscribe();
             initCookieBanner();
             initMobileMenu();
+            revealInitialShell();
             loadSiteData();
             requestAnimationFrame(forceInitialScrollTop);
             window.setTimeout(forceInitialScrollTop, 250);
         });
 
+        // 先顯示頁面內建內容與主視覺，不讓 GAS 冷啟動阻塞首屏。
+        // 後台資料取得後仍會覆寫成最新設定。
+        function revealInitialShell() {
+            const loading = document.getElementById('loading-state');
+            if (loading) loading.classList.add('hidden');
+
+            ['hero-section', 'news-section', 'about-section', 'speakers-section',
+             'agenda-section', 'traffic-section', 'subscribe-section'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('hidden');
+            });
+
+            const heroBanner = document.getElementById('hero-image');
+            if (heroBanner) heroBanner.classList.add('has-image-loaded');
+        }
+
         // 載入網站資料
         async function loadSiteData() {
-            showLoading(true);
+            // 首屏已由 revealInitialShell() 顯示；這裡只在背景同步資料。
 
             // GAS 冷啟動可能需要幾秒，自動重試最多 3 次
             const MAX_RETRY = 3;
