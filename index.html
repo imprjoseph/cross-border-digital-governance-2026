@@ -4835,6 +4835,33 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 }
 
 @media (max-width: 600px) {
+    .site-footer .footer-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        width: 100% !important;
+        gap: 22px !important;
+    }
+
+    .site-footer .footer-grid > *,
+    .footer-organizers-col,
+    .footer-col,
+    .footer-brand {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+    }
+
+    #footer-organizer,
+    #footer-co-organizer {
+        margin-left: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .footer-org-name {
+        max-width: 100% !important;
+    }
+
     #hero-location,
     body.lang-zh #hero-location,
     html[lang="zh-TW"] #hero-location {
