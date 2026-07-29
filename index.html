@@ -4783,6 +4783,27 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 }
 
 @media (max-width: 600px) {
+    #hero-location,
+    body.lang-zh #hero-location,
+    html[lang="zh-TW"] #hero-location {
+        max-width: 100% !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+
+    #footer-conf-date-loc,
+    .footer-brand,
+    .footer-brand p {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+
     .speaker-modal .speaker-detail {
         align-items: stretch !important;
         text-align: left !important;
@@ -5293,7 +5314,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260728-footer-organizers-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260729-registration-fields-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
@@ -6608,7 +6629,9 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             { key: 'email',    label_zh: 'Email',       label_en: 'Email',         type: 'email',  required: true,  half: true  },
             { key: 'phone',    label_zh: '聯絡電話',    label_en: 'Phone',         type: 'tel',    required: true,  half: true  },
             { key: 'org',      label_zh: '所屬單位（公司、法人、學校等）', label_en: 'Organization / Affiliation', type: 'text', required: true, half: true },
-            { key: 'title',    label_zh: '職稱',        label_en: 'Job Title',     type: 'text',   required: false, half: true  },
+            { key: 'title',    label_zh: '職稱',        label_en: 'Job Title',     type: 'text',   required: true,  half: true  },
+            { key: 'dietary',  label_zh: '飲食習慣',    label_en: 'Dietary Preference', type: 'select', required: true, half: true,
+              options_zh: ['葷', '素', '不用餐'], options_en: ['Regular', 'Vegetarian', 'No meal'] },
             { key: 'remarks',  label_zh: '備註',        label_en: 'Remarks',       type: 'textarea',required: false, half: false },
         ];
 
@@ -6745,9 +6768,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 }
             } catch(e) { /* 使用預設欄位 */ }
 
-            fields = fields
-                .filter(field => field.key !== 'dietary')
-                .map(field => {
+            fields = fields.map(field => {
                     if (field.key === 'name') {
                         return {
                             ...field,
@@ -6762,6 +6783,23 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                         label_zh: '所屬單位（公司、法人、學校等）',
                         label_en: 'Organization / Affiliation',
                         required: true
+                        };
+                    }
+
+                    if (field.key === 'title') {
+                        return {
+                            ...field,
+                            required: true
+                        };
+                    }
+
+                    if (field.key === 'dietary') {
+                        return {
+                            ...field,
+                            type: 'select',
+                            required: true,
+                            options_zh: ['葷', '素', '不用餐'],
+                            options_en: ['Regular', 'Vegetarian', 'No meal']
                         };
                     }
 
@@ -6837,7 +6875,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
                 const optsHtml = opts.map(o => `<option>${o}</option>`).join('');
                 return `<div class="reg-field">
                     <label>${label}${req}</label>
-                    <select name="${f.key}">
+                    <select name="${f.key}" ${f.required ? 'required' : ''}>
                         <option value="">${isZh ? '請選擇' : 'Select...'}</option>
                         ${optsHtml}
                     </select>
@@ -6846,7 +6884,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             } else if (f.type === 'textarea') {
                 return `<div class="reg-field">
                     <label>${label}${req}</label>
-                    <textarea name="${f.key}" placeholder="${placeholder}" rows="3"></textarea>
+                    <textarea name="${f.key}" placeholder="${placeholder}" rows="3" ${f.required ? 'required' : ''}></textarea>
                     ${hintHtml}
                 </div>`;
             } else {
@@ -6891,6 +6929,10 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
             form.querySelectorAll('[name]').forEach(el => {
                 data[el.name] = el.value.trim();
             });
+            if (data.dietary) {
+                const dietaryNote = `${isZh ? '飲食習慣' : 'Dietary preference'}：${data.dietary}`;
+                data.remarks = data.remarks ? `${dietaryNote}\n${data.remarks}` : dietaryNote;
+            }
 
             // 送出
             btn.disabled = true;
