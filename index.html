@@ -4908,6 +4908,55 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     line-height: 1.55 !important;
 }
 
+.footer-organization-logos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.footer-organization-logo {
+    min-width: 0;
+    height: 58px;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.footer-organization-logo img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 44px;
+    object-fit: contain;
+}
+
+.footer-organization-logo.logo-wide {
+    grid-column: 1 / -1;
+}
+
+.footer-organization-name-card {
+    grid-column: 1 / -1;
+    min-height: 42px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.35;
+    text-align: center;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 8px;
+}
+
+.footer-organizer-text-list {
+    display: none !important;
+}
+
 .footer-quick-links-col {
     display: none !important;
 }
@@ -5080,6 +5129,19 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
         max-width: 100%;
         margin-left: 0;
         justify-self: stretch;
+    }
+
+    .footer-organization-logos {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-organization-logo.logo-wide,
+    .footer-organization-name-card {
+        grid-column: auto;
+    }
+
+    .footer-organization-logo {
+        height: 62px;
     }
 
     #hero-location,
@@ -5538,13 +5600,50 @@ body.lang-en .hero-left {
                                     object-fit:contain;display:block;">
                     </div>
                     <!-- 無 logo 時顯示文字 -->
-                    <ul id="footer-organizer-list">
+                    <ul id="footer-organizer-list" class="footer-organizer-text-list" aria-hidden="true">
                         <li><i class="fas fa-building"></i><span id="footer-organizer">-</span></li>
                     </ul>
+                    <div class="footer-organization-logos" aria-label="主辦單位">
+                        <div class="footer-organization-logo logo-wide">
+                            <img src="assets/footer-org-tcs.png"
+                                 alt="台灣通訊學會 Taiwan Communications Society"
+                                 width="716" height="270" loading="lazy">
+                        </div>
+                        <div class="footer-organization-name-card"
+                             data-zh="臺師大AI倫理與治理中心計畫"
+                             data-en="NTNU AI Ethics and Governance Center Project">臺師大AI倫理與治理中心計畫</div>
+                    </div>
                     <h4 style="margin-top:20px;" data-zh="協辦單位（依筆劃排序）" data-en="Co-Organizers">協辦單位（依筆劃排序）</h4>
-                    <ul id="footer-co-organizer-list">
+                    <ul id="footer-co-organizer-list" class="footer-organizer-text-list" aria-hidden="true">
                         <li><i class="fas fa-handshake"></i><span id="footer-co-organizer">-</span></li>
                     </ul>
+                    <div class="footer-organization-logos" aria-label="協辦單位">
+                        <div class="footer-organization-logo">
+                            <img src="assets/footer-org-tca.png"
+                                 alt="台北市電腦公會 Taipei Computer Association"
+                                 width="509" height="108" loading="lazy">
+                        </div>
+                        <div class="footer-organization-logo">
+                            <img src="assets/sponsor-ttida.png"
+                                 alt="台灣電信產業發展協會 TTIDA"
+                                 width="507" height="149" loading="lazy">
+                        </div>
+                        <div class="footer-organization-logo">
+                            <img src="assets/sponsor-tia.png"
+                                 alt="台灣網際網路協會"
+                                 width="900" height="172" loading="lazy">
+                        </div>
+                        <div class="footer-organization-logo">
+                            <img src="assets/footer-org-ott.png"
+                                 alt="台灣線上影視產業協會 Taiwan OTT Association"
+                                 width="286" height="247" loading="lazy">
+                        </div>
+                        <div class="footer-organization-logo logo-wide">
+                            <img src="assets/footer-org-stba.png"
+                                 alt="衛星廣播電視事業商業同業公會"
+                                 width="422" height="128" loading="lazy">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 聯絡資訊 -->
