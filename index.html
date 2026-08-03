@@ -4848,6 +4848,73 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     text-align: center !important;
 }
 
+/* 頁尾協辦單位：桌機固定兩排（前三、後二） */
+#footer-co-organizer {
+    display: grid !important;
+    gap: 6px !important;
+}
+
+.footer-co-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 0;
+}
+
+.footer-co-row .footer-org-name {
+    display: inline !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+}
+
+.footer-co-row .footer-org-name:not(:last-child)::after {
+    content: "、";
+}
+
+/* 贊助單位：不加卡片邊框，Logo 等高呈現 */
+.footer-sponsors-row {
+    margin: 10px 0 28px;
+    padding: 22px 24px;
+    background: #ffffff;
+    border: 0;
+    border-radius: 12px;
+}
+
+.footer-sponsors-row h4 {
+    margin: 0 0 18px;
+    color: #12385a;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.footer-sponsor-logos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 36px;
+}
+
+.footer-sponsor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    height: 72px;
+    border: 0;
+    background: transparent;
+}
+
+.footer-sponsor-logo img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 58px;
+    object-fit: contain;
+    border: 0;
+    background: transparent;
+}
+
 @media (max-width: 600px) {
     .site-footer .footer-grid {
         display: grid !important;
@@ -4874,6 +4941,28 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 
     .footer-org-name {
         max-width: 100% !important;
+    }
+
+    .footer-co-row {
+        flex-wrap: wrap;
+        row-gap: 4px;
+    }
+
+    .footer-sponsors-row {
+        padding: 20px 16px;
+    }
+
+    .footer-sponsor-logos {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .footer-sponsor-logo {
+        height: 64px;
+    }
+
+    .footer-sponsor-logo img {
+        height: 52px;
     }
 
     #hero-location,
@@ -5364,6 +5453,25 @@ body.lang-en .hero-left {
                         <li style="display:none;"><i class="fas fa-download"></i><a href="#" data-section="downloads" onclick="openDownloads();return false;" data-zh="下載專區" data-en="Downloads" style="display:none;">下載專區</a></li>
                         <li><i class="fas fa-images"></i><a href="#" data-section="past_events" onclick="openPastEventsAlbum(event)" data-zh="歷年會議" data-en="Past Events">歷年會議</a></li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- 贊助單位 -->
+            <div class="footer-sponsors-row">
+                <h4 data-zh="贊助單位" data-en="Sponsors">贊助單位</h4>
+                <div class="footer-sponsor-logos">
+                    <div class="footer-sponsor-logo">
+                        <img src="assets/sponsor-chunghwa-telecom.png"
+                             alt="中華電信" width="335" height="110" loading="lazy">
+                    </div>
+                    <div class="footer-sponsor-logo">
+                        <img src="assets/sponsor-ttida.png"
+                             alt="台灣電信產業發展協會 TTIDA" width="507" height="149" loading="lazy">
+                    </div>
+                    <div class="footer-sponsor-logo">
+                        <img src="assets/sponsor-tia.png"
+                             alt="台灣網際網路協會" width="900" height="172" loading="lazy">
+                    </div>
                 </div>
             </div>
 
@@ -6115,11 +6223,16 @@ body.lang-en .hero-left {
             if (coOrganizerEl) {
                 const names = String(coOrganizerText).split(/\s*(?:\||、)\s*/).filter(Boolean);
                 coOrganizerEl.replaceChildren();
-                names.forEach(name => {
-                    const nameEl = document.createElement('span');
-                    nameEl.className = 'footer-org-name';
-                    nameEl.textContent = name;
-                    coOrganizerEl.append(nameEl);
+                [names.slice(0, 3), names.slice(3)].filter(group => group.length).forEach(group => {
+                    const rowEl = document.createElement('span');
+                    rowEl.className = 'footer-co-row';
+                    group.forEach(name => {
+                        const nameEl = document.createElement('span');
+                        nameEl.className = 'footer-org-name';
+                        nameEl.textContent = name;
+                        rowEl.append(nameEl);
+                    });
+                    coOrganizerEl.append(rowEl);
                 });
             }
 
@@ -6140,6 +6253,9 @@ body.lang-en .hero-left {
 
             // Footer 快速連結 & 標題多語
             document.querySelectorAll('.footer-col [data-zh]').forEach(el => {
+                el.textContent = isEn ? (el.dataset.en || el.dataset.zh) : el.dataset.zh;
+            });
+            document.querySelectorAll('.footer-sponsors-row [data-zh]').forEach(el => {
                 el.textContent = isEn ? (el.dataset.en || el.dataset.zh) : el.dataset.zh;
             });
             document.querySelectorAll('.footer-col ul a[data-zh]').forEach(el => {
