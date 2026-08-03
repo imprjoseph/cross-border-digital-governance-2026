@@ -5886,6 +5886,7 @@ body.lang-en .hero-left {
                     renderNoticeCards();
                     updateSocialLinks();
                     updateTitles();
+                    initRegisterForm();
                     scheduleHeroBannerCleanup();
                     showLoading(false);
                     forceInitialScrollTop();
@@ -7132,16 +7133,7 @@ body.lang-en .hero-left {
             }
             regSec.classList.remove('hidden');
 
-            // 嘗試從 GAS 取得自訂欄位，失敗則用預設
-            let fields = DEFAULT_FORM_FIELDS;
-            try {
-                const res = await cachedApiFetch('getFormFields', API_CACHE_TTL.settings);
-                if (res.success && Array.isArray(res.data) && res.data.length > 0) {
-                    fields = res.data;
-                }
-            } catch(e) { /* 使用預設欄位 */ }
-
-            fields = fields.map(field => {
+            const normalizeFields = fields => fields.map(field => {
                     if (field.key === 'name') {
                         return {
                             ...field,
@@ -7178,7 +7170,24 @@ body.lang-en .hero-left {
 
                     return field;
                 });
-            renderRegForm(fields);
+
+            // 先立即顯示預設欄位，不等待 GAS 冷啟動或其他內容載入。
+            renderRegForm(normalizeFields(DEFAULT_FORM_FIELDS));
+
+            // 後台有自訂欄位時再更新；連線失敗仍保留可用的預設表單。
+            try {
+                const res = await Promise.race([
+                    cachedApiFetch('getFormFields', API_CACHE_TTL.settings),
+                    new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('表單欄位載入逾時')), 8000)
+                    )
+                ]);
+                if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+                    renderRegForm(normalizeFields(res.data));
+                }
+            } catch(e) {
+                console.warn('使用預設報名欄位:', e.message);
+            }
         }
 
         function renderRegForm(fields) {
