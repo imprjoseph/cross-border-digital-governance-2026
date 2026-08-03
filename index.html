@@ -5335,7 +5335,7 @@ body.lang-en .hero-left {
                     <ul id="footer-organizer-list">
                         <li><i class="fas fa-building"></i><span id="footer-organizer">-</span></li>
                     </ul>
-                    <h4 style="margin-top:20px;" data-zh="協辦單位" data-en="Co-Organizer">協辦單位</h4>
+                    <h4 style="margin-top:20px;" data-zh="協辦單位（依筆劃排序）" data-en="Co-Organizers">協辦單位（依筆劃排序）</h4>
                     <ul id="footer-co-organizer-list">
                         <li><i class="fas fa-handshake"></i><span id="footer-co-organizer">-</span></li>
                     </ul>
@@ -5470,7 +5470,7 @@ body.lang-en .hero-left {
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
-        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260729-registration-fields-v1`;
+        const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260803-organizers-v1`;
         document.title = CONFERENCE_CONFIG.siteTitle || document.title;
         const API_CACHE_TTL = {
             settings: 5 * 60 * 1000,
