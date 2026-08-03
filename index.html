@@ -4797,6 +4797,13 @@ body.lang-en .hero-actions {
 }
 
 /* ===== Final Locale/UI Guards ===== */
+/* 本會議不顯示最新消息：中英文版與導覽列同步隱藏 */
+#news-section,
+.navbar-link[data-section="news"],
+a[href="#news"] {
+    display: none !important;
+}
+
 body.lang-zh #hero-location,
 html[lang="zh-TW"] #hero-location {
     white-space: nowrap !important;
