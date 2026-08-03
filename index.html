@@ -4893,7 +4893,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 
 .footer-organizers-col h4 {
     color: #ffffff !important;
-    font-size: 16px !important;
+    font-size: 17px !important;
     font-weight: 800 !important;
     letter-spacing: .1em !important;
     margin-bottom: 12px !important;
@@ -4903,7 +4903,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 .footer-organizers-col .footer-org-name,
 #footer-organizer {
     color: #f4f8fb !important;
-    font-size: 16px !important;
+    font-size: 16.5px !important;
     font-weight: 650 !important;
     line-height: 1.55 !important;
 }
@@ -4919,7 +4919,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     align-items: center;
     gap: 28px;
     margin: 8px 0 28px;
-    padding: 14px 26px;
+    padding: 8px 22px;
     background: #ffffff;
     border: 0;
     border-radius: 14px;
@@ -4929,7 +4929,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 .footer-sponsors-row h4 {
     margin: 0;
     color: #12385a;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
     letter-spacing: .12em;
     text-align: center;
@@ -4947,7 +4947,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     align-items: center;
     justify-content: center;
     min-width: 0;
-    height: 56px;
+    height: 46px;
     padding: 2px 28px;
     border: 0;
     background: transparent;
@@ -4960,8 +4960,8 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 .footer-sponsor-logo img {
     display: block;
     width: auto;
-    max-width: 160px;
-    max-height: 36px;
+    max-width: 145px;
+    max-height: 30px;
     height: auto;
     object-fit: contain;
     border: 0;
@@ -4984,7 +4984,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     .footer-sponsors-row {
         grid-template-columns: 100px minmax(0, 1fr);
         gap: 18px;
-        padding: 14px 20px;
+        padding: 8px 18px;
     }
 
     .footer-sponsor-logo {
@@ -5005,8 +5005,8 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     }
 
     .footer-sponsor-logo img {
-        max-width: 160px;
-        max-height: 36px;
+        max-width: 145px;
+        max-height: 30px;
     }
 }
 
@@ -5045,7 +5045,7 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 
     .footer-sponsors-row {
         display: block;
-        padding: 14px 18px;
+        padding: 10px 16px;
     }
 
     .footer-sponsors-row h4 {
@@ -5059,8 +5059,8 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     }
 
     .footer-sponsor-logo {
-        height: 58px;
-        padding: 8px;
+        height: 48px;
+        padding: 6px;
     }
 
     .footer-sponsor-logo + .footer-sponsor-logo {
@@ -5070,8 +5070,8 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 
     .footer-sponsor-logo img {
         width: auto;
-        max-width: 200px;
-        max-height: 36px;
+        max-width: 180px;
+        max-height: 30px;
         height: auto;
     }
 
@@ -5705,6 +5705,41 @@ body.lang-en .hero-left {
             settings: 5 * 60 * 1000,
             content: 10 * 60 * 1000
         };
+        const STATIC_SETTINGS_SNAPSHOT = {
+            site_status: 'live',
+            registration_status: 'open',
+            conference_title_zh: '2026科技主權高峰論壇',
+            conference_title_en: '2026 Technology Sovereignty Summit',
+            conference_date: '2026-08-31',
+            conference_location_zh: '集思交通部國際會議中心 3F國際會議廳',
+            conference_location_en: 'GIS MOTC Convention Center 3F Plenary Hall',
+            registration_end_at: '2026-08-21T23:59:59+08:00',
+            organizer_zh: '台灣通訊學會、臺師大AI倫理與治理中心計畫',
+            organizer_en: 'Taiwan Communications Society | NTNU AI Ethics and Governance Center Project',
+            co_organizer_zh: '台北市電腦公會、台灣電信產業發展協會、台灣網際網路協會、台灣線上影視產業協會、衛星廣播電視事業商業同業公會',
+            co_organizer_en: 'Taipei Computer Association | Taiwan Telecommunications Industry Development Association | Taiwan Internet Association | Taiwan Online Audiovisual Industry Association | Satellite Television Broadcasting Association, R.O.C.',
+            contact_email: 'joseph@impr.com.tw',
+            contact_phone: '02-27635666 #101',
+            contact_address_zh: '台北市大安區敦化南路二段1號11樓',
+            contact_address_en: "11F, No. 1, Sec. 2, Dunhua S. Rd., Da'an Dist., Taipei City",
+            show_news: false,
+            show_speakers: true,
+            show_agenda: true,
+            show_traffic: true,
+            show_sponsors: false,
+            show_downloads: false,
+            show_faq: true,
+            show_past_events: false
+        };
+        const STATIC_ABOUT_SNAPSHOT = [{
+            id: 'about-01',
+            title_zh: '論壇簡介',
+            title_en: 'Forum Overview',
+            content_zh: '「2026科技主權高峰論壇」聚焦AI與全球科技巨頭快速發展下，臺灣如何守護產業、資料、文化與治理主權。論壇將從通訊主權、AI主權、文化主權及資料主權四大面向，探討低軌衛星、跨國AI治理、數位平台與內容產業、境外漫遊網卡及數位軌跡等重要議題，並邀集產官學界代表進行專題分享與交流座談，共同提出臺灣面對跨境數位發展的治理策略與行動方向。',
+            content_en: "The 2026 Technology Sovereignty Summit explores how Taiwan can safeguard its industrial, data, cultural, and governance sovereignty amid the rapid rise of AI and global technology giants. Through four key themes—communications, AI, cultural, and data sovereignty—the forum will examine low-Earth-orbit satellites, cross-border AI governance, digital platforms and content industries, overseas roaming SIM cards, and digital footprints. Leaders from government, industry, and academia will share insights and discuss practical strategies for Taiwan's response to cross-border digital development.",
+            sort_order: 1,
+            is_visible: true
+        }];
 
         function getApiUrl() {
             // 正式網站固定使用此會議的正式 API，避免瀏覽器殘留的測試網址
@@ -5745,9 +5780,10 @@ body.lang-en .hero-left {
                 const cached = JSON.parse(raw);
                 if (!cached || !cached.timestamp || !cached.payload) return null;
 
+                // 過期內容仍可先顯示，最新資料於背景重新抓取。
+                // 這能避免 GAS 冷啟動時整個欄位一片空白。
                 const age = Date.now() - cached.timestamp;
-                if (age > maxAgeMs) return null;
-
+                if (age > maxAgeMs) usedApiCacheThisLoad = true;
                 return cached.payload;
             } catch (error) {
                 return null;
@@ -5879,17 +5915,44 @@ body.lang-en .hero-left {
             window.setTimeout(forceInitialScrollTop, 250);
         });
 
+        function hydrateCachedContentImmediately() {
+            [
+                'getSettings',
+                'getAbout',
+                'getSpeakers',
+                'getAgenda',
+                'getTraffic',
+                'getFaq',
+                'getPrivacy',
+                'getFormFields'
+            ].forEach(action => {
+                const cached = readApiCache(action, Number.MAX_SAFE_INTEGER);
+                if (cached) applyApiData(action, cached);
+            });
+        }
+
         // 先顯示頁面內建內容與主視覺，不讓 GAS 冷啟動阻塞首屏。
         // 後台資料取得後仍會覆寫成最新設定。
         function revealInitialShell() {
             const loading = document.getElementById('loading-state');
             if (loading) loading.classList.add('hidden');
 
+            siteData.settings = { ...STATIC_SETTINGS_SNAPSHOT };
+            siteData.about = STATIC_ABOUT_SNAPSHOT.map(item => ({ ...item }));
+
             ['hero-section', 'news-section', 'about-section', 'speakers-section',
              'agenda-section', 'traffic-section', 'subscribe-section'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('hidden');
             });
+
+            updateHero();
+            updateRegisterButton();
+            initRegisterForm();
+            renderAbout();
+            updateTitles();
+            applySectionSwitches();
+            hydrateCachedContentImmediately();
 
             const heroBanner = document.getElementById('hero-image');
             if (heroBanner) heroBanner.classList.add('has-image-loaded');
@@ -6109,6 +6172,7 @@ body.lang-en .hero-left {
             // 主要內容先完成，讓使用者可先閱讀首頁、講師與議程。
             updateContent();
             initRegisterButtons();
+            window.setTimeout(refreshCachedDataInBackground, 100);
 
             window.setTimeout(() => {
                 Promise.allSettled([
