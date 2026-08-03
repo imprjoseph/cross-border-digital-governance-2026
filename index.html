@@ -5673,6 +5673,7 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
+    <script src="assets/content-snapshot.js"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -5697,6 +5698,7 @@ body.lang-en .hero-left {
         // 正式預設值統一由 assets/conference-config.js 管理。
         // localStorage 僅供管理者在目前瀏覽器暫時測試其他 API。
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
+        const CONTENT_SNAPSHOT = window.CONFERENCE_CONTENT_SNAPSHOT || {};
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
         const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260803-api-fix-v1`;
@@ -5938,7 +5940,10 @@ body.lang-en .hero-left {
             if (loading) loading.classList.add('hidden');
 
             siteData.settings = { ...STATIC_SETTINGS_SNAPSHOT };
-            siteData.about = STATIC_ABOUT_SNAPSHOT.map(item => ({ ...item }));
+            siteData.about = (CONTENT_SNAPSHOT.about || STATIC_ABOUT_SNAPSHOT).map(item => ({ ...item }));
+            siteData.agenda = (CONTENT_SNAPSHOT.agenda || []).map(item => ({ ...item }));
+            siteData.traffic = (CONTENT_SNAPSHOT.traffic || []).map(item => ({ ...item }));
+            siteData.faq = (CONTENT_SNAPSHOT.faq || []).map(item => ({ ...item }));
 
             ['hero-section', 'news-section', 'about-section', 'speakers-section',
              'agenda-section', 'traffic-section', 'subscribe-section'].forEach(id => {
@@ -5950,6 +5955,9 @@ body.lang-en .hero-left {
             updateRegisterButton();
             initRegisterForm();
             renderAbout();
+            renderAgenda();
+            renderTraffic();
+            renderFaq();
             updateTitles();
             applySectionSwitches();
             hydrateCachedContentImmediately();
