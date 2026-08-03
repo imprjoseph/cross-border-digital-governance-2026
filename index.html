@@ -4871,28 +4871,51 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     content: "、";
 }
 
-/* 贊助單位：不加卡片邊框，Logo 等高呈現 */
+/* 頁尾三欄：隱藏快速連結，聯絡資訊靠右 */
+.site-footer .footer-grid {
+    grid-template-columns: minmax(220px, 1.05fr) minmax(470px, 1.8fr) minmax(210px, .9fr) !important;
+    gap: 42px !important;
+}
+
+.footer-contact-col {
+    width: 100%;
+    max-width: 270px;
+    margin-left: auto;
+    justify-self: end;
+}
+
+.footer-quick-links-col {
+    display: none !important;
+}
+
+/* 贊助單位：純白展示帶、等高視覺與一致留白 */
 .footer-sponsors-row {
-    margin: 10px 0 28px;
-    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr);
+    align-items: center;
+    gap: 28px;
+    margin: 8px 0 28px;
+    padding: 22px 30px;
     background: #ffffff;
     border: 0;
-    border-radius: 12px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 12, 28, .18);
 }
 
 .footer-sponsors-row h4 {
-    margin: 0 0 18px;
+    margin: 0;
     color: #12385a;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
-    letter-spacing: .08em;
+    letter-spacing: .12em;
+    text-align: center;
 }
 
 .footer-sponsor-logos {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: center;
-    gap: 36px;
+    gap: 0;
 }
 
 .footer-sponsor-logo {
@@ -4900,19 +4923,54 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     align-items: center;
     justify-content: center;
     min-width: 0;
-    height: 72px;
+    height: 68px;
+    padding: 4px 28px;
     border: 0;
     background: transparent;
+}
+
+.footer-sponsor-logo + .footer-sponsor-logo {
+    border-left: 1px solid #e3e9ee;
 }
 
 .footer-sponsor-logo img {
     display: block;
     width: auto;
-    max-width: 100%;
-    height: 58px;
+    max-width: 220px;
+    max-height: 48px;
+    height: auto;
     object-fit: contain;
     border: 0;
     background: transparent;
+}
+
+@media (max-width: 980px) {
+    .site-footer .footer-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) !important;
+        gap: 30px !important;
+    }
+
+    .footer-contact-col {
+        grid-column: 2;
+        max-width: none;
+        margin-left: 0;
+        justify-self: stretch;
+    }
+
+    .footer-sponsors-row {
+        grid-template-columns: 100px minmax(0, 1fr);
+        gap: 18px;
+        padding: 20px 22px;
+    }
+
+    .footer-sponsor-logo {
+        padding-inline: 16px;
+    }
+
+    .footer-sponsor-logo img {
+        max-width: 190px;
+        max-height: 44px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -4949,20 +5007,42 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     }
 
     .footer-sponsors-row {
-        padding: 20px 16px;
+        display: block;
+        padding: 20px 18px;
+    }
+
+    .footer-sponsors-row h4 {
+        margin-bottom: 18px;
+        text-align: left;
     }
 
     .footer-sponsor-logos {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 0;
     }
 
     .footer-sponsor-logo {
-        height: 64px;
+        height: 70px;
+        padding: 12px 8px;
+    }
+
+    .footer-sponsor-logo + .footer-sponsor-logo {
+        border-left: 0;
+        border-top: 1px solid #e3e9ee;
     }
 
     .footer-sponsor-logo img {
-        height: 52px;
+        width: auto;
+        max-width: 230px;
+        max-height: 46px;
+        height: auto;
+    }
+
+    .footer-contact-col {
+        grid-column: auto;
+        max-width: 100%;
+        margin-left: 0;
+        justify-self: stretch;
     }
 
     #hero-location,
@@ -5431,7 +5511,7 @@ body.lang-en .hero-left {
                 </div>
 
                 <!-- 聯絡資訊 -->
-                <div class="footer-col">
+                <div class="footer-col footer-contact-col">
                     <h4 data-zh="聯絡我們" data-en="Contact Us">聯絡我們</h4>
                     <ul>
                         <li><i class="fas fa-envelope"></i><a id="footer-email" href="#">-</a></li>
@@ -5441,7 +5521,7 @@ body.lang-en .hero-left {
                 </div>
 
                 <!-- 快速連結 -->
-                <div class="footer-col">
+                <div class="footer-col footer-quick-links-col" hidden aria-hidden="true">
                     <h4 data-zh="快速連結" data-en="Quick Links">快速連結</h4>
                     <ul id="footer-quick-links">
                         <li><i class="fas fa-newspaper"></i><a href="#news" data-section="news" data-zh="最新消息" data-en="News">最新消息</a></li>
