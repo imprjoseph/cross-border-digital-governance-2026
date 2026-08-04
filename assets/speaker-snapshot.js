@@ -48,11 +48,11 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
   {
     id: "speaker-yang-yueh-ping",
     name_zh: "楊岳平", name_en: "楊岳平",
-    title_zh: "場次二專題講者", title_en: "Keynote Speaker, Session 2",
+    title_zh: "場次二與談人", title_en: "Panelist, Session 2",
     organization_zh: "國立臺灣大學法律學系教授", organization_en: "Professor of Law, National Taiwan University",
-    short_bio_zh: "現任國立臺灣大學法律學系教授，擔任AI主權場次專題講者。",
-    short_bio_en: "Professor of Law at National Taiwan University and keynote speaker for the AI sovereignty session.",
-    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 7, is_visible: "true"
+    short_bio_zh: "現任國立臺灣大學法律學系教授，參與AI主權場次與談。",
+    short_bio_en: "Professor of Law at National Taiwan University and panelist in the AI sovereignty session.",
+    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 9, is_visible: "true"
   },
   {
     id: "speaker-wu-han-chang",
@@ -62,15 +62,6 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     short_bio_zh: "現任台北市電腦公會「AI大聯盟」會長，參與AI主權場次與談。",
     short_bio_en: "Chair of the AI Alliance at the Taipei Computer Association and panelist in the AI sovereignty session.",
     full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 8, is_visible: "true"
-  },
-  {
-    id: "speaker-huang-yi-feng",
-    name_zh: "黃益豐", name_en: "黃益豐",
-    title_zh: "場次二與談人", title_en: "Panelist, Session 2",
-    organization_zh: "台北市電腦公會副總幹事、iWIN網路內容防護機構執行長", organization_en: "Deputy Secretary-General, Taipei Computer Association; CEO, iWIN",
-    short_bio_zh: "現任台北市電腦公會副總幹事及iWIN網路內容防護機構執行長。",
-    short_bio_en: "Deputy Secretary-General of the Taipei Computer Association and CEO of the iWIN online content protection organization.",
-    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 9, is_visible: "true"
   },
   {
     id: "speaker-hsiao-ping",
@@ -156,7 +147,7 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
   {
     id: "speaker-chen-yao-hsiang",
     name_zh: "陳耀祥", name_en: "陳耀祥",
-    title_zh: "綜合座談與談人", title_en: "Panelist, Plenary Panel",
+    title_zh: "場次二專題講者暨綜合座談與談人", title_en: "Keynote Speaker, Session 2; Panelist, Plenary Panel",
     organization_zh: "國立臺北大學公共行政暨政策學系教授、前NCC主委", organization_en: "Professor, Department of Public Administration and Policy, National Taipei University; Former NCC Chairperson",
     short_bio_zh: "現任國立臺北大學公共行政暨政策學系教授，曾任國家通訊傳播委員會主任委員。",
     short_bio_en: "Professor in the Department of Public Administration and Policy at National Taipei University and former Chairperson of the National Communications Commission.",
@@ -176,8 +167,8 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     name_zh: "戴豪君", name_en: "戴豪君",
     title_zh: "綜合座談與談人", title_en: "Panelist, Plenary Panel",
     organization_zh: "世新大學法律學院教授", organization_en: "Professor, College of Law, Shih Hsin University",
-    short_bio_zh: "現任世新大學法律學院教授，參與綜合座談。",
-    short_bio_en: "Professor at the College of Law, Shih Hsin University, and panelist in the plenary session.",
-    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 21, is_visible: "true"
+    short_bio_zh: "現任世新大學法律學院教授，擔任AI主權場次專題講者，並參與綜合座談。",
+    short_bio_en: "Professor at the College of Law, Shih Hsin University; keynote speaker for the AI sovereignty session and panelist in the plenary session.",
+    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 7, is_visible: "true"
   }
 ];

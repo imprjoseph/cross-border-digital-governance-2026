@@ -5910,8 +5910,8 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260804-7"></script>
-    <script src="assets/speaker-snapshot.js?v=20260804-7"></script>
+    <script src="assets/content-snapshot.js?v=20260804-8"></script>
+    <script src="assets/speaker-snapshot.js?v=20260804-8"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -6090,7 +6090,7 @@ body.lang-en .hero-left {
                     break;
                 case 'getSpeakers':
                     if (Array.isArray(payload) && payload.length > 0) {
-                        siteData.speakers = payload;
+                        siteData.speakers = normalizeSpeakers(payload);
                         renderSpeakers();
                     }
                     break;
@@ -7022,7 +7022,7 @@ body.lang-en .hero-left {
             try {
                 const data = await cachedApiFetch('getSpeakers');
                 if (data.success && Array.isArray(data.data) && data.data.length > 0) {
-                    siteData.speakers = data.data;
+                    siteData.speakers = normalizeSpeakers(data.data);
                     renderSpeakers();
                 }
             } catch (error) {
@@ -7030,11 +7030,19 @@ body.lang-en .hero-left {
             }
         }
 
+        function normalizeSpeakers(items) {
+            const snapshotById = new Map(SPEAKERS_SNAPSHOT.map(item => [item.id, item]));
+            return (items || [])
+                .filter(sp => !['speaker-opening-remarks', 'speaker-huang-yi-feng'].includes(sp.id))
+                .filter(sp => String(sp.is_visible ?? 'true').toLowerCase() !== 'false')
+                .map(sp => ({ ...sp, ...(snapshotById.get(sp.id) || {}) }));
+        }
+
         // 渲染講師：依議程排序，僅列現任與曾任職稱。
         function renderSpeakers() {
             const container = document.getElementById('speakers-content');
             const speakers = (siteData.speakers || [])
-                .filter(sp => sp.id !== 'speaker-opening-remarks')
+                .filter(sp => !['speaker-opening-remarks', 'speaker-huang-yi-feng'].includes(sp.id))
                 .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0));
             const lang = currentLang;
 
