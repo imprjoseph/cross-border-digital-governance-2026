@@ -85,8 +85,8 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     id: "speaker-wei-hui-chen",
     name_zh: "魏惠珍", name_en: "魏惠珍",
     title_zh: "場次三與談人", title_en: "Panelist, Session 3",
-    organization_zh: "台灣線上影視產業學會理事長", organization_en: "Chair, Taiwan OTT Association",
-    short_bio_zh: "現任台灣線上影視產業學會理事長，參與文化主權場次與談。",
+    organization_zh: "台灣線上影視產業協會理事長", organization_en: "Chair, Taiwan OTT Association",
+    short_bio_zh: "現任台灣線上影視產業協會理事長，參與文化主權場次與談。",
     short_bio_en: "Chair of the Taiwan OTT Association and panelist in the cultural sovereignty session.",
     full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 12, is_visible: "true"
   },
