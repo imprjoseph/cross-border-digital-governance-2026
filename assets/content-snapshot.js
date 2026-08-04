@@ -59,8 +59,8 @@ window.CONFERENCE_CONTENT_SNAPSHOT = {
       "location_zh": "集思交通部國際會議中心",
       "location_en": "GIS MOTC Convention Center",
       "type": "ceremony",
-      "notes_zh": "依致詞人數分配時間",
-      "notes_en": "Time allocated according to the number of speakers.",
+      "notes_zh": "",
+      "notes_en": "",
       "sort_order": 3,
       "is_visible": "true"
     },
