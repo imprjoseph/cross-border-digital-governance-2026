@@ -5898,7 +5898,7 @@ body.lang-en .hero-left {
 
     <script src="assets/conference-config.js"></script>
     <script src="assets/content-snapshot.js"></script>
-    <script src="assets/speaker-snapshot.js"></script>
+    <script src="assets/speaker-snapshot.js?v=20260804-1"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -6076,12 +6076,24 @@ body.lang-en .hero-left {
                     renderFaq();
                     break;
                 case 'getSpeakers':
-                    siteData.speakers = payload;
-                    renderSpeakers();
+                    if (Array.isArray(payload) && payload.length > 0) {
+                        siteData.speakers = payload;
+                        renderSpeakers();
+                    }
                     break;
                 case 'getAgenda':
-                    siteData.agenda = payload;
-                    renderAgenda();
+                    if (Array.isArray(payload) && payload.length > 0) {
+                        const agendaSnapshotById = new Map((CONTENT_SNAPSHOT.agenda || []).map(item => [item.id, item]));
+                        siteData.agenda = payload.map(item => {
+                            const snapshot = agendaSnapshotById.get(item.id) || {};
+                            return {
+                                ...item,
+                                speaker_zh: String(item.speaker_zh || '').trim() ? item.speaker_zh : (snapshot.speaker_zh || ''),
+                                speaker_en: String(item.speaker_en || '').trim() ? item.speaker_en : (snapshot.speaker_en || '')
+                            };
+                        });
+                        renderAgenda();
+                    }
                     break;
                 case 'getTraffic':
                     siteData.traffic = payload;
