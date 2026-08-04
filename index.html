@@ -4952,6 +4952,29 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
     display: none !important;
 }
 
+.footer-unit-name-list {
+    display: grid !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.footer-unit-name-list li {
+    min-height: 42px;
+    margin: 0 !important;
+    padding: 9px 12px 9px 15px !important;
+    display: flex;
+    align-items: center;
+    color: #f3f7fa !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+    background: rgba(255, 255, 255, .075);
+    border-left: 3px solid #5cc9c2;
+    border-radius: 6px;
+}
+
 .footer-quick-links-col {
     display: none !important;
 }
@@ -5077,6 +5100,11 @@ html[lang="zh-TW"] .hero-meta-item:has(#hero-location) {
 .footer-sponsor-column .footer-sponsor-logo img {
     max-width: 100%;
     max-height: 38px;
+}
+
+.footer-unit-column .footer-organization-logos,
+.footer-unit-column .footer-sponsor-logos {
+    display: none !important;
 }
 
 .footer-event-summary {
@@ -5739,16 +5767,10 @@ body.lang-en .hero-left {
                     <ul id="footer-organizer-list" class="footer-organizer-text-list" aria-hidden="true">
                         <li><i class="fas fa-building"></i><span id="footer-organizer">-</span></li>
                     </ul>
-                    <div class="footer-organization-logos" aria-label="主辦單位">
-                        <div class="footer-organization-logo">
-                            <img src="assets/footer-org-tcs.png"
-                                 alt="台灣通訊學會 Taiwan Communications Society"
-                                 width="716" height="270" loading="lazy">
-                        </div>
-                        <div class="footer-organization-name-card"
-                             data-zh="臺師大AI倫理與治理中心計畫"
-                             data-en="NTNU AI Ethics and Governance Center Project">臺師大AI倫理與治理中心計畫</div>
-                    </div>
+                    <ul class="footer-unit-name-list" aria-label="主辦單位">
+                        <li><span data-zh="台灣通訊學會" data-en="Taiwan Communications Society">台灣通訊學會</span></li>
+                        <li><span data-zh="臺師大AI倫理與治理中心計畫" data-en="NTNU AI Ethics and Governance Center Project">臺師大AI倫理與治理中心計畫</span></li>
+                    </ul>
                 </section>
 
                 <!-- 中間：協辦單位 -->
@@ -5757,56 +5779,24 @@ body.lang-en .hero-left {
                     <ul id="footer-co-organizer-list" class="footer-organizer-text-list" aria-hidden="true">
                         <li><i class="fas fa-handshake"></i><span id="footer-co-organizer">-</span></li>
                     </ul>
-                    <div class="footer-organization-logos" aria-label="協辦單位">
-                        <div class="footer-organization-logo">
-                            <img src="assets/footer-org-tca.png"
-                                 alt="台北市電腦公會 Taipei Computer Association"
-                                 width="509" height="108" loading="lazy">
-                        </div>
-                        <div class="footer-organization-logo">
-                            <img src="assets/sponsor-ttida.png"
-                                 alt="台灣電信產業發展協會 TTIDA"
-                                 width="507" height="149" loading="lazy">
-                        </div>
-                        <div class="footer-organization-logo">
-                            <img src="assets/sponsor-tia.png"
-                                 alt="台灣網際網路協會"
-                                 width="900" height="172" loading="lazy">
-                        </div>
-                        <div class="footer-organization-logo">
-                            <img src="assets/footer-org-ott.png"
-                                 alt="台灣線上影視產業協會 Taiwan OTT Association"
-                                 width="286" height="247" loading="lazy">
-                        </div>
-                        <div class="footer-organization-logo">
-                            <img src="assets/footer-org-stba.png"
-                                 alt="衛星廣播電視事業商業同業公會"
-                                 width="422" height="128" loading="lazy">
-                        </div>
-                    </div>
+                    <ul class="footer-unit-name-list" aria-label="協辦單位">
+                        <li><span data-zh="台北市電腦公會" data-en="Taipei Computer Association">台北市電腦公會</span></li>
+                        <li><span data-zh="台灣電信產業發展協會" data-en="Taiwan Telecommunications Industry Development Association">台灣電信產業發展協會</span></li>
+                        <li><span data-zh="台灣網際網路協會" data-en="Taiwan Internet Association">台灣網際網路協會</span></li>
+                        <li><span data-zh="台灣線上影視產業協會" data-en="Taiwan Online Audiovisual Industry Association">台灣線上影視產業協會</span></li>
+                        <li><span data-zh="衛星廣播電視事業商業同業公會" data-en="Satellite Television Broadcasting Association, R.O.C.">衛星廣播電視事業商業同業公會</span></li>
+                    </ul>
                 </section>
 
                 <!-- 右側：贊助單位 -->
                 <section class="footer-col footer-unit-column footer-sponsor-column">
                     <h4 data-zh="贊助單位" data-en="Sponsors">贊助單位</h4>
-                    <div class="footer-sponsor-logos">
-                    <div class="footer-sponsor-logo">
-                        <img src="assets/sponsor-chunghwa-telecom.png"
-                             alt="中華電信" width="335" height="110" loading="lazy">
-                    </div>
-                    <div class="footer-sponsor-logo">
-                        <img src="assets/sponsor-taiwan-mobile.png"
-                             alt="台灣大哥大 Taiwan Mobile" width="1853" height="442" loading="lazy">
-                    </div>
-                    <div class="footer-sponsor-logo">
-                        <img src="assets/sponsor-fet.png"
-                             alt="遠傳電信 FET" width="367" height="127" loading="lazy">
-                    </div>
-                    <div class="footer-sponsor-logo">
-                        <img src="assets/sponsor-tia.png"
-                             alt="台灣網際網路協會" width="900" height="172" loading="lazy">
-                    </div>
-                </div>
+                    <ul class="footer-unit-name-list" aria-label="贊助單位">
+                        <li><span data-zh="中華電信" data-en="Chunghwa Telecom">中華電信</span></li>
+                        <li><span data-zh="台灣大哥大" data-en="Taiwan Mobile">台灣大哥大</span></li>
+                        <li><span data-zh="遠傳電信" data-en="Far EasTone Telecommunications">遠傳電信</span></li>
+                        <li><span data-zh="台灣網際網路協會" data-en="Taiwan Internet Association">台灣網際網路協會</span></li>
+                    </ul>
                 </section>
             </div>
 
