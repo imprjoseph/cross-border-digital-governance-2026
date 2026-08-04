@@ -153,7 +153,7 @@ window.CONFERENCE_CONTENT_SNAPSHOT = {
       "id": "agenda-11",
       "date": "2026-08-31",
       "start_time": "14:30",
-      "end_time": "15:35",
+      "end_time": "15:30",
       "title_zh": "主題四：資料主權：境外漫遊網卡與國人數位軌跡",
       "title_en": "Session 4: Data Sovereignty — Overseas Roaming SIM Cards and Citizens' Digital Footprints",
       "speaker_zh": "主持人：劉崇堅教授\nKeynote：鄧惟中董事長\n與談：王怡惠研究員、劉莉秋秘書長",
@@ -169,8 +169,8 @@ window.CONFERENCE_CONTENT_SNAPSHOT = {
     {
       "id": "agenda-12",
       "date": "2026-08-31",
-      "start_time": "15:35",
-      "end_time": "15:55",
+      "start_time": "15:30",
+      "end_time": "16:00",
       "title_zh": "下午茶敘交流",
       "title_en": "Afternoon Tea and Networking",
       "speaker_zh": "",
@@ -186,7 +186,7 @@ window.CONFERENCE_CONTENT_SNAPSHOT = {
     {
       "id": "agenda-13",
       "date": "2026-08-31",
-      "start_time": "15:55",
+      "start_time": "16:00",
       "end_time": "16:50",
       "title_zh": "綜合座談：跨境數位發展下的網路治理挑戰與因應",
       "title_en": "Plenary Panel: Internet Governance Challenges and Responses in Cross-Border Digital Development",
