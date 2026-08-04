@@ -3781,6 +3781,7 @@ body {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.4;
+    white-space: pre-line;
 }
 
 @media (max-width: 640px) {
@@ -5897,6 +5898,7 @@ body.lang-en .hero-left {
 
     <script src="assets/conference-config.js"></script>
     <script src="assets/content-snapshot.js"></script>
+    <script src="assets/speaker-snapshot.js"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -5922,6 +5924,7 @@ body.lang-en .hero-left {
         // localStorage 僅供管理者在目前瀏覽器暫時測試其他 API。
         const CONFERENCE_CONFIG = window.CONFERENCE_CONFIG || {};
         const CONTENT_SNAPSHOT = window.CONFERENCE_CONTENT_SNAPSHOT || {};
+        const SPEAKERS_SNAPSHOT = window.CONFERENCE_SPEAKERS_SNAPSHOT || [];
         const API_DEFAULT_URL = CONFERENCE_CONFIG.apiUrl || '';
         const API_OVERRIDE_KEY = `GAS_API_URL:${CONFERENCE_CONFIG.siteId || 'conference'}`;
         const API_CACHE_VERSION = `${CONFERENCE_CONFIG.siteId || 'conference'}:20260803-api-fix-v1`;
@@ -6164,6 +6167,7 @@ body.lang-en .hero-left {
 
             siteData.settings = { ...STATIC_SETTINGS_SNAPSHOT };
             siteData.about = (CONTENT_SNAPSHOT.about || STATIC_ABOUT_SNAPSHOT).map(item => ({ ...item }));
+            siteData.speakers = SPEAKERS_SNAPSHOT.map(item => ({ ...item }));
             siteData.agenda = (CONTENT_SNAPSHOT.agenda || []).map(item => ({ ...item }));
             siteData.traffic = (CONTENT_SNAPSHOT.traffic || []).map(item => ({ ...item }));
             siteData.faq = (CONTENT_SNAPSHOT.faq || []).map(item => ({ ...item }));
@@ -6178,6 +6182,7 @@ body.lang-en .hero-left {
             updateRegisterButton();
             initRegisterForm();
             renderAbout();
+            renderSpeakers();
             renderAgenda();
             renderTraffic();
             renderFaq();
@@ -6991,8 +6996,10 @@ body.lang-en .hero-left {
         async function loadSpeakers() {
             try {
                 const data = await cachedApiFetch('getSpeakers');
-            siteData.speakers = data.data;
-            renderSpeakers();
+                if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+                    siteData.speakers = data.data;
+                    renderSpeakers();
+                }
             } catch (error) {
                 console.error('載入講師資料失敗:', error);
             }
@@ -7038,8 +7045,18 @@ body.lang-en .hero-left {
         async function loadAgenda() {
             try {
                 const data = await cachedApiFetch('getAgenda');
-            siteData.agenda = data.data;
-            renderAgenda();
+                if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+                    const snapshotById = new Map((CONTENT_SNAPSHOT.agenda || []).map(item => [item.id, item]));
+                    siteData.agenda = data.data.map(item => {
+                        const snapshot = snapshotById.get(item.id) || {};
+                        return {
+                            ...item,
+                            speaker_zh: String(item.speaker_zh || '').trim() ? item.speaker_zh : (snapshot.speaker_zh || ''),
+                            speaker_en: String(item.speaker_en || '').trim() ? item.speaker_en : (snapshot.speaker_en || '')
+                        };
+                    });
+                    renderAgenda();
+                }
             } catch (error) {
                 console.error('載入議程失敗:', error);
             }
