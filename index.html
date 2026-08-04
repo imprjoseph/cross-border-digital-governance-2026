@@ -2315,14 +2315,6 @@
             font-weight: 700;
             line-height: 1.55;
         }
-        .speaker-position-label {
-            display: block;
-            margin-bottom: 3px;
-            color: var(--primary-color);
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: .08em;
-        }
         .speaker-former-position {
             margin-top: 12px;
             padding-top: 10px;
@@ -5918,8 +5910,8 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260804-3"></script>
-    <script src="assets/speaker-snapshot.js?v=20260804-3"></script>
+    <script src="assets/content-snapshot.js?v=20260804-4"></script>
+    <script src="assets/speaker-snapshot.js?v=20260804-4"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -7073,12 +7065,10 @@ body.lang-en .hero-left {
                     <div class="speaker-content">
                         <div class="speaker-name">${escapeHtml(name)}</div>
                         <div class="speaker-position">
-                            <span class="speaker-position-label">${lang === 'zh' ? '現任職稱' : 'CURRENT POSITION'}</span>
                             ${escapeHtml(currentPosition)}
                         </div>
                         ${formerPosition ? `
                             <div class="speaker-former-position">
-                                <span class="speaker-position-label">${lang === 'zh' ? '曾任職稱' : 'FORMER POSITION'}</span>
                                 ${escapeHtml(formerPosition)}
                             </div>
                         ` : ''}
