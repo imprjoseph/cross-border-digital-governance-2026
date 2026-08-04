@@ -1,18 +1,6 @@
 /* Public speaker snapshot in agenda order. Live GAS data replaces this only when it is non-empty. */
 window.CONFERENCE_SPEAKERS_SNAPSHOT = [
   {
-    id: "speaker-opening-remarks",
-    name_zh: "林宜敬部長／葉寧次長（待確認）",
-    name_en: "Minister Lin Yi-jing / Deputy Minister Yeh Ning (TBC)",
-    title_zh: "致詞貴賓（8/10 待邀請確認）",
-    title_en: "Guest Speaker (invitation confirmation pending on Aug. 10)",
-    organization_zh: "數位發展部",
-    organization_en: "Ministry of Digital Affairs",
-    short_bio_zh: "本場致詞人選為數位發展部林宜敬部長或葉寧次長，將於邀請確認後更新。",
-    short_bio_en: "The guest speaker will be Minister Lin Yi-jing or Deputy Minister Yeh Ning of the Ministry of Digital Affairs. The listing will be updated after confirmation.",
-    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 1, is_visible: "true"
-  },
-  {
     id: "speaker-tsai-chih-hung",
     name_zh: "蔡志宏", name_en: "蔡志宏",
     title_zh: "場次一主持人", title_en: "Moderator, Session 1",

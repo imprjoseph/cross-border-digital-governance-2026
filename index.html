@@ -2308,9 +2308,30 @@
             flex-shrink: 0;
         }
 
-        .speaker-name { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 4px; }
-        .speaker-title { font-size: 12.5px; color: var(--primary-color); font-weight: 600; margin-bottom: 3px; }
-        .speaker-org { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+        .speaker-name { font-size: 18px; font-weight: 800; color: #111827; margin-bottom: 12px; }
+        .speaker-position {
+            font-size: 14px;
+            color: #17324d;
+            font-weight: 700;
+            line-height: 1.55;
+        }
+        .speaker-position-label {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--primary-color);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .08em;
+        }
+        .speaker-former-position {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #e5e7eb;
+            color: var(--text-muted);
+            font-size: 12.5px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
 
         .speaker-bio {
             font-size: 12.5px;
@@ -5897,8 +5918,8 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260804-2"></script>
-    <script src="assets/speaker-snapshot.js?v=20260804-2"></script>
+    <script src="assets/content-snapshot.js?v=20260804-3"></script>
+    <script src="assets/speaker-snapshot.js?v=20260804-3"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -7017,10 +7038,12 @@ body.lang-en .hero-left {
             }
         }
 
-        // 渲染講師（第一層：圓形大頭照 + 簡介卡片）
+        // 渲染講師：依議程排序，僅列現任與曾任職稱。
         function renderSpeakers() {
             const container = document.getElementById('speakers-content');
-            const speakers = siteData.speakers || [];
+            const speakers = (siteData.speakers || [])
+                .filter(sp => sp.id !== 'speaker-opening-remarks')
+                .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0));
             const lang = currentLang;
 
             if (speakers.length === 0) {
@@ -7030,24 +7053,35 @@ body.lang-en .hero-left {
 
             container.innerHTML = speakers.map(sp => {
                 const name = lang === 'zh' ? sp.name_zh : sp.name_en;
-                const title = lang === 'zh' ? sp.title_zh : sp.title_en;
-                const org = lang === 'zh' ? sp.organization_zh : sp.organization_en;
-                const bio = lang === 'zh' ? sp.short_bio_zh : sp.short_bio_en;
+                const position = lang === 'zh' ? sp.organization_zh : sp.organization_en;
+                const formerMarker = lang === 'zh' ? '、前' : '; Former ';
+                const markerIndex = String(position || '').indexOf(formerMarker);
+                const currentPosition = markerIndex >= 0
+                    ? String(position).slice(0, markerIndex)
+                    : String(position || '');
+                const formerPosition = markerIndex >= 0
+                    ? (lang === 'zh'
+                        ? `前${String(position).slice(markerIndex + formerMarker.length)}`
+                        : `Former ${String(position).slice(markerIndex + formerMarker.length)}`)
+                    : '';
                 const photoHtml = sp.photo_url
-                    ? `<img src="${sp.photo_url}" alt="${name}" loading="lazy" decoding="async">`
+                    ? `<img src="${escapeHtml(sp.photo_url)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">`
                     : '<i class="fas fa-user"></i>';
                 return `
                 <div class="speaker-card">
                     <div class="speaker-avatar">${photoHtml}</div>
                     <div class="speaker-content">
-                        <div class="speaker-name">${name}</div>
-                        <div class="speaker-title">${title}</div>
-                        <div class="speaker-org">${org}</div>
-                        <div class="speaker-bio">${bio}</div>
-                        <button class="speaker-detail-btn" onclick="showSpeakerDetail('${sp.id}')">
-                            <i class="fas fa-address-card"></i>
-                            ${lang === 'zh' ? '查看詳細' : 'View Profile'}
-                        </button>
+                        <div class="speaker-name">${escapeHtml(name)}</div>
+                        <div class="speaker-position">
+                            <span class="speaker-position-label">${lang === 'zh' ? '現任職稱' : 'CURRENT POSITION'}</span>
+                            ${escapeHtml(currentPosition)}
+                        </div>
+                        ${formerPosition ? `
+                            <div class="speaker-former-position">
+                                <span class="speaker-position-label">${lang === 'zh' ? '曾任職稱' : 'FORMER POSITION'}</span>
+                                ${escapeHtml(formerPosition)}
+                            </div>
+                        ` : ''}
                     </div>
                 </div>`;
             }).join('');
