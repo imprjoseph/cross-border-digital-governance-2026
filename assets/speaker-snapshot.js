@@ -170,5 +170,14 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     short_bio_zh: "現任世新大學法律學院教授，擔任AI主權場次專題講者，並參與綜合座談。",
     short_bio_en: "Professor at the College of Law, Shih Hsin University; keynote speaker for the AI sovereignty session and panelist in the plenary session.",
     full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 7, is_visible: "true"
+  },
+  {
+    id: "speaker-chan-ting-i",
+    name_zh: "詹婷怡", name_en: "詹婷怡",
+    title_zh: "綜合座談與談人", title_en: "Panelist, Plenary Panel",
+    organization_zh: "財團法人人工智慧科技基金會董事長、前NCC主委", organization_en: "Chairperson, Artificial Intelligence Foundation; Former NCC Chairperson",
+    short_bio_zh: "現任財團法人人工智慧科技基金會董事長，曾任國家通訊傳播委員會主任委員，參與綜合座談。",
+    short_bio_en: "Chairperson of the Artificial Intelligence Foundation, former Chairperson of the National Communications Commission, and panelist in the plenary session.",
+    full_bio_zh: "", full_bio_en: "", photo_url: "", sort_order: 21, is_visible: "true"
   }
 ];
