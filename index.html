@@ -7033,10 +7033,12 @@ body.lang-en .hero-left {
 
         function normalizeSpeakers(items) {
             const snapshotById = new Map(SPEAKERS_SNAPSHOT.map(item => [item.id, item]));
-            return (items || [])
+            const apiById = new Map((items || []).map(item => [item.id, item]));
+            const speakerIds = new Set([...snapshotById.keys(), ...apiById.keys()]);
+            return Array.from(speakerIds)
+                .map(id => ({ ...(apiById.get(id) || {}), ...(snapshotById.get(id) || {}) }))
                 .filter(sp => !['speaker-opening-remarks', 'speaker-huang-yi-feng'].includes(sp.id))
-                .filter(sp => String(sp.is_visible ?? 'true').toLowerCase() !== 'false')
-                .map(sp => ({ ...sp, ...(snapshotById.get(sp.id) || {}) }));
+                .filter(sp => String(sp.is_visible ?? 'true').toLowerCase() !== 'false');
         }
 
         // 渲染講師：依議程排序，僅列現任與曾任職稱。
