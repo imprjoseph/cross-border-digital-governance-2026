@@ -621,6 +621,10 @@
 
         .speaker-content {
             width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .speaker-name {
@@ -2314,6 +2318,7 @@
             color: #17324d;
             font-weight: 700;
             line-height: 1.55;
+            white-space: pre-line;
         }
         .speaker-former-position {
             margin-top: 12px;
@@ -2348,6 +2353,26 @@
         }
 
         .speaker-detail-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        .speaker-card .speaker-detail-btn {
+            margin-top: auto;
+            transform: translateY(6px);
+        }
+
+        .speaker-detail-role {
+            margin: 2px 0 6px;
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .speaker-detail-org {
+            margin: 0 0 18px;
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.65;
+            white-space: pre-line;
+        }
 
         /* ── 議程 升級 ── */
         .agenda-container {
@@ -5911,8 +5936,8 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260806-1"></script>
-    <script src="assets/speaker-snapshot.js?v=20260806-1"></script>
+    <script src="assets/content-snapshot.js?v=20260811-3"></script>
+    <script src="assets/speaker-snapshot.js?v=20260811-15"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -7083,6 +7108,10 @@ body.lang-en .hero-left {
                                 ${escapeHtml(formerPosition)}
                             </div>
                         ` : ''}
+                        <button type="button" class="speaker-detail-btn" onclick="showSpeakerDetail('${escapeHtml(sp.id)}')">
+                            <i class="fas fa-user-circle"></i>
+                            ${lang === 'zh' ? '查看詳細' : 'View Profile'}
+                        </button>
                     </div>
                 </div>`;
             }).join('');
@@ -7377,9 +7406,9 @@ body.lang-en .hero-left {
 
             const lang = currentLang;
             const name = lang === 'zh' ? sp.name_zh : sp.name_en;
-            const title = lang === 'zh' ? sp.title_zh : sp.title_en;
-            const org = lang === 'zh' ? sp.organization_zh : sp.organization_en;
-            const bio = lang === 'zh' ? sp.full_bio_zh : sp.full_bio_en;
+            const title = lang === 'zh' ? sp.title_zh : (sp.title_en || sp.title_zh);
+            const org = lang === 'zh' ? sp.organization_zh : (sp.organization_en || sp.organization_zh);
+            const bio = lang === 'zh' ? sp.full_bio_zh : (sp.full_bio_en || sp.full_bio_zh);
             const topic = lang === 'zh' ? sp.topic_zh : sp.topic_en;
             const expertise = lang === 'zh' ? sp.expertise_zh : sp.expertise_en;
 
@@ -7391,8 +7420,10 @@ body.lang-en .hero-left {
                 <div class="speaker-detail">
                     <div class="speaker-detail-avatar">${photoHtml}</div>
                     <div class="speaker-detail-body">
-                        <h3>${name}</h3>
-                        ${bio ? `<div class="speaker-section-label">${lang === 'zh' ? '個人背景' : 'Biography'}</div><p>${bio}</p>` : ''}
+                        <h3>${escapeHtml(name)}</h3>
+                        ${title ? `<div class="speaker-detail-role">${escapeHtml(title)}</div>` : ''}
+                        ${org ? `<div class="speaker-detail-org">${escapeHtml(org)}</div>` : ''}
+                        ${bio ? `<div class="speaker-section-label">${lang === 'zh' ? '個人背景' : 'Biography'}</div><p>${escapeHtml(bio)}</p>` : ''}
                         ${topic ? `<div class="speaker-section-label">${lang === 'zh' ? '議題' : 'Presentation Topic'}</div><p>${topic}</p>` : ''}
                         ${expertise ? `<div class="speaker-section-label">${lang === 'zh' ? '議題背景' : 'Expertise'}</div><p>${expertise}</p>` : ''}
                     </div>
