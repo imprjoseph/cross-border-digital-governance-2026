@@ -5936,7 +5936,7 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260811-3"></script>
+    <script src="assets/content-snapshot.js?v=20260811-4"></script>
     <script src="assets/speaker-snapshot.js?v=20260811-15"></script>
     <script>
         if ('scrollRestoration' in history) {
@@ -6123,8 +6123,10 @@ body.lang-en .hero-left {
                 case 'getAgenda':
                     if (Array.isArray(payload) && payload.length > 0) {
                         const agendaSnapshotById = new Map((CONTENT_SNAPSHOT.agenda || []).map(item => [item.id, item]));
+                        const snapshotOverrideIds = new Set(['agenda-01', 'agenda-02', 'agenda-03']);
                         siteData.agenda = payload.map(item => {
                             const snapshot = agendaSnapshotById.get(item.id) || {};
+                            if (snapshotOverrideIds.has(item.id)) return { ...item, ...snapshot };
                             return {
                                 ...item,
                                 speaker_zh: String(item.speaker_zh || '').trim() ? item.speaker_zh : (snapshot.speaker_zh || ''),
@@ -7123,8 +7125,10 @@ body.lang-en .hero-left {
                 const data = await cachedApiFetch('getAgenda');
                 if (data.success && Array.isArray(data.data) && data.data.length > 0) {
                     const snapshotById = new Map((CONTENT_SNAPSHOT.agenda || []).map(item => [item.id, item]));
+                    const snapshotOverrideIds = new Set(['agenda-01', 'agenda-02', 'agenda-03']);
                     siteData.agenda = data.data.map(item => {
                         const snapshot = snapshotById.get(item.id) || {};
+                        if (snapshotOverrideIds.has(item.id)) return { ...item, ...snapshot };
                         return {
                             ...item,
                             speaker_zh: String(item.speaker_zh || '').trim() ? item.speaker_zh : (snapshot.speaker_zh || ''),
@@ -7215,14 +7219,13 @@ body.lang-en .hero-left {
                         </div>
                         ${items.map(item => {
                             const title = lang === 'zh' ? item.title_zh : item.title_en;
-                            const isGuestRemarks = item.id === 'agenda-03';
-                            const speaker = isGuestRemarks ? '' : (lang === 'zh' ? item.speaker_zh : item.speaker_en);
-                            const notes = isGuestRemarks ? '' : (lang === 'zh' ? item.notes_zh : item.notes_en);
+                            const speaker = lang === 'zh' ? item.speaker_zh : item.speaker_en;
+                            const notes = lang === 'zh' ? item.notes_zh : item.notes_en;
                             const startTime = formatAgendaTime(item.start_time);
                             const endTime = formatAgendaTime(item.end_time);
                             const timeRange = `${startTime || ''}${endTime ? ` - ${endTime}` : ''}`;
                             const hasSpeaker = Boolean(String(speaker || '').trim());
-                            const mergeSpeaker = isGuestRemarks || (!hasSpeaker && ['registration', 'break', 'transition'].includes(item.type));
+                            const mergeSpeaker = !hasSpeaker && ['registration', 'break', 'transition'].includes(item.type);
 
                             return `
                                 <div class="agenda-item${mergeSpeaker ? ' agenda-item--no-speaker' : ''}">
