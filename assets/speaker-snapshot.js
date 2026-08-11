@@ -142,7 +142,7 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     organization_zh: "台灣通訊學會理事長、前NCC委員", organization_en: "Chair, Taiwan Communications Society; Former NCC Commissioner",
     short_bio_zh: "現任國立臺灣師範大學大眾傳播研究所教授兼國際與社會科學學院副院長、台灣通訊學會理事長，研究專長涵蓋傳播政治經濟學、數位平台治理及人工智慧倫理。",
     short_bio_en: "Professor at the Graduate Institute of Mass Communication and Associate Dean of the College of International Studies and Social Sciences at National Taiwan Normal University, and Chair of the Taiwan Communications Society.",
-    full_bio_zh: "國立臺灣師範大學大眾傳播研究所教授兼國際與社會科學學院副院長，現任台灣通訊學會理事長。取得美國德州大學奧斯汀分校廣播電視電影系媒介研究博士學位，研究專長涵蓋傳播政治經濟學、數位平台治理及人工智慧倫理。曾任國家通訊傳播委員會（NCC）委員（2020年至2024年），長期投入通訊傳播政策與公共議題研究，持續關注新聞及媒體產業、數位平台責任與人工智慧倫理治理等議題。", full_bio_en: "", photo_url: "assets/speakers/speaker-wang-wei-ching.webp?v=20260811-6", sort_order: 18, is_visible: "true"
+    full_bio_zh: "國立臺灣師範大學大眾傳播研究所教授兼國際與社會科學學院副院長，現任台灣通訊學會理事長。取得美國德州大學奧斯汀分校廣播電視電影系媒介研究博士學位，研究專長涵蓋傳播政治經濟學、數位平台治理及人工智慧倫理。曾任國家通訊傳播委員會（NCC）委員（2020年至2024年），長期投入通訊傳播政策與公共議題研究，持續關注新聞及媒體產業、數位平台責任與人工智慧倫理治理等議題。", full_bio_en: "", photo_url: "assets/speakers/speaker-wang-wei-ching.webp?v=20260811-7", sort_order: 18, is_visible: "true"
   },
   {
     id: "speaker-chen-yao-hsiang",
