@@ -1,6 +1,18 @@
 /* Public speaker snapshot in agenda order. Live GAS data replaces this only when it is non-empty. */
 window.CONFERENCE_SPEAKERS_SNAPSHOT = [
   {
+    id: "speaker-lin-yi-jing",
+    category: "guest",
+    name_zh: "林宜敬", name_en: "Lin Yi-jing",
+    title_zh: "貴賓", title_en: "Distinguished Guest",
+    organization_zh: "數位發展部部長", organization_en: "Minister of Digital Affairs",
+    short_bio_zh: "現任數位發展部部長，曾任數位發展部政務次長及艾爾科技創辦人兼執行長。",
+    short_bio_en: "Minister of Digital Affairs; former Deputy Minister of Digital Affairs and founder and CEO of Aethertek Technology.",
+    full_bio_zh: "學歷\n1995　美國布朗大學電腦科學博士\n1987　臺灣大學資訊工程系學士\n\n經歷\n2024–2025　數位發展部政務次長\n2002–2024　艾爾科技創辦人兼執行長\n2021–2023　《印刻文學生活誌》專欄作家\n1999–2001　趨勢科技新產品研發部協理\n1996–1999　華通電腦資訊工程部副理\n1995–1996　美國 IBM 華生研究中心博士後研究員",
+    full_bio_en: "Education\n1995　Ph.D. in Computer Science, Brown University\n1987　B.S. in Computer Science and Information Engineering, National Taiwan University\n\nExperience\n2024–2025　Deputy Minister of Digital Affairs\n2002–2024　Founder and CEO, Aethertek Technology\n2021–2023　Columnist, INK Literary Monthly\n1999–2001　Associate Vice President, New Product Development, Trend Micro\n1996–1999　Deputy Manager, Information Engineering Division, Compeq Manufacturing\n1995–1996　Postdoctoral Researcher, IBM Thomas J. Watson Research Center",
+    photo_url: "assets/speakers/speaker-lin-yi-jing.webp?v=20260814-1", sort_order: 1, is_visible: "true"
+  },
+  {
     id: "speaker-tsai-chih-hung",
     name_zh: "蔡志宏", name_en: "蔡志宏",
     title_zh: "場次一主持人", title_en: "Moderator, Session 1",
