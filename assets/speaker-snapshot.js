@@ -1,6 +1,18 @@
 /* Public speaker snapshot in agenda order. Live GAS data replaces this only when it is non-empty. */
 window.CONFERENCE_SPEAKERS_SNAPSHOT = [
   {
+    id: "speaker-lin-yi-jing",
+    category: "guest",
+    name_zh: "林宜敬", name_en: "Lin Yi-jing",
+    title_zh: "貴賓", title_en: "Distinguished Guest",
+    organization_zh: "數位發展部部長", organization_en: "Minister of Digital Affairs",
+    short_bio_zh: "現任數位發展部部長，曾任數位發展部政務次長及艾爾科技創辦人兼執行長。",
+    short_bio_en: "Minister of Digital Affairs; former Deputy Minister of Digital Affairs and founder and CEO of Aethertek Technology.",
+    full_bio_zh: "學歷\n1995　美國布朗大學電腦科學博士\n1987　臺灣大學資訊工程系學士\n\n經歷\n2024–2025　數位發展部政務次長\n2002–2024　艾爾科技創辦人兼執行長\n2021–2023　《印刻文學生活誌》專欄作家\n1999–2001　趨勢科技新產品研發部協理\n1996–1999　華通電腦資訊工程部副理\n1995–1996　美國 IBM 華生研究中心博士後研究員",
+    full_bio_en: "Education\n1995　Ph.D. in Computer Science, Brown University\n1987　B.S. in Computer Science and Information Engineering, National Taiwan University\n\nExperience\n2024–2025　Deputy Minister of Digital Affairs\n2002–2024　Founder and CEO, Aethertek Technology\n2021–2023　Columnist, INK Literary Monthly\n1999–2001　Associate Vice President, New Product Development, Trend Micro\n1996–1999　Deputy Manager, Information Engineering Division, Compeq Manufacturing\n1995–1996　Postdoctoral Researcher, IBM Thomas J. Watson Research Center",
+    photo_url: "assets/speakers/speaker-lin-yi-jing.webp?v=20260814-1", sort_order: 1, is_visible: "true"
+  },
+  {
     id: "speaker-tsai-chih-hung",
     name_zh: "蔡志宏", name_en: "蔡志宏",
     title_zh: "場次一主持人", title_en: "Moderator, Session 1",
@@ -139,7 +151,7 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     id: "speaker-wang-wei-ching",
     name_zh: "王維菁", name_en: "王維菁",
     title_zh: "綜合座談主持人", title_en: "Moderator, Plenary Panel",
-    organization_zh: "台灣通訊學會理事長、前NCC委員", organization_en: "Chair, Taiwan Communications Society; Former NCC Commissioner",
+    organization_zh: "臺師大國際與社會科學學院副院長、台灣通訊學會理事長、前NCC委員", organization_en: "Associate Dean, College of International Studies and Social Sciences, National Taiwan Normal University; Chair, Taiwan Communications Society; Former NCC Commissioner",
     short_bio_zh: "現任國立臺灣師範大學大眾傳播研究所教授兼國際與社會科學學院副院長、台灣通訊學會理事長，研究專長涵蓋傳播政治經濟學、數位平台治理及人工智慧倫理。",
     short_bio_en: "Professor at the Graduate Institute of Mass Communication and Associate Dean of the College of International Studies and Social Sciences at National Taiwan Normal University, and Chair of the Taiwan Communications Society.",
     full_bio_zh: "國立臺灣師範大學大眾傳播研究所教授兼國際與社會科學學院副院長，現任台灣通訊學會理事長。取得美國德州大學奧斯汀分校廣播電視電影系媒介研究博士學位，研究專長涵蓋傳播政治經濟學、數位平台治理及人工智慧倫理。曾任國家通訊傳播委員會（NCC）委員（2020年至2024年），長期投入通訊傳播政策與公共議題研究，持續關注新聞及媒體產業、數位平台責任與人工智慧倫理治理等議題。", full_bio_en: "", photo_url: "assets/speakers/speaker-wang-wei-ching.webp?v=20260811-7", sort_order: 18, is_visible: "true"

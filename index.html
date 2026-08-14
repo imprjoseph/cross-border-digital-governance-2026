@@ -577,6 +577,18 @@
             gap: 32px;
         }
 
+        .guest-introduction {
+            margin-bottom: 64px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .guest-grid {
+            display: grid;
+            grid-template-columns: minmax(240px, 320px);
+            justify-content: center;
+        }
+
         .speaker-card {
             background: #fff;
             border-radius: 16px;
@@ -751,6 +763,7 @@
             font-size: 14px;
             color: #374151;
             line-height: 1.75;
+            white-space: pre-line;
         }
 
         @media (max-width: 600px) {
@@ -5649,9 +5662,17 @@ body.lang-en .hero-left {
             </div>
         </section>
 
-        <!-- 講師介紹 -->
+        <!-- 貴賓及講師介紹 -->
         <section id="speakers-section" class="section hidden">
             <div class="container">
+                <div class="guest-introduction">
+                    <div class="section-title">
+                        <h2 id="guests-title">貴賓介紹</h2>
+                    </div>
+                    <div id="guests-content" class="guest-grid">
+                        <!-- 動態載入內容 -->
+                    </div>
+                </div>
                 <div class="section-title">
                     <h2 id="speakers-title">講師介紹</h2>
                     <p id="speakers-subtitle">依議程順序排列</p>
@@ -5936,8 +5957,8 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260811-4"></script>
-    <script src="assets/speaker-snapshot.js?v=20260811-17"></script>
+    <script src="assets/content-snapshot.js?v=20260814-1"></script>
+    <script src="assets/speaker-snapshot.js?v=20260814-1"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -7071,17 +7092,15 @@ body.lang-en .hero-left {
         // 渲染講師：依議程排序，僅列現任與曾任職稱。
         function renderSpeakers() {
             const container = document.getElementById('speakers-content');
-            const speakers = (siteData.speakers || [])
+            const guestContainer = document.getElementById('guests-content');
+            const allSpeakers = (siteData.speakers || [])
                 .filter(sp => !['speaker-opening-remarks', 'speaker-huang-yi-feng'].includes(sp.id))
                 .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0));
+            const guests = allSpeakers.filter(sp => sp.category === 'guest');
+            const speakers = allSpeakers.filter(sp => sp.category !== 'guest');
             const lang = currentLang;
 
-            if (speakers.length === 0) {
-                container.innerHTML = `<div class="loading-section">${lang === 'zh' ? '目前沒有講師資料' : 'No speaker information available'}</div>`;
-                return;
-            }
-
-            container.innerHTML = speakers.map(sp => {
+            const renderCards = items => items.map(sp => {
                 const name = lang === 'zh' ? sp.name_zh : sp.name_en;
                 const position = lang === 'zh' ? sp.organization_zh : sp.organization_en;
                 const formerMarker = lang === 'zh' ? '、前' : '; Former ';
@@ -7117,6 +7136,16 @@ body.lang-en .hero-left {
                     </div>
                 </div>`;
             }).join('');
+
+            if (guestContainer) {
+                guestContainer.innerHTML = guests.length
+                    ? renderCards(guests)
+                    : `<div class="loading-section">${lang === 'zh' ? '目前沒有貴賓資料' : 'No distinguished guest information available'}</div>`;
+            }
+
+            container.innerHTML = speakers.length
+                ? renderCards(speakers)
+                : `<div class="loading-section">${lang === 'zh' ? '目前沒有講師資料' : 'No speaker information available'}</div>`;
         }
 
         // 載入議程
@@ -7966,6 +7995,7 @@ body.lang-en .hero-left {
                 'news-subtitle':       ['會議相關最新公告與資訊', 'Latest announcements and updates'],
                 'about-title':         ['會議介紹', 'About Conference'],
                 'about-subtitle':      ['了解本次會議的詳細內容', 'Learn about the conference details'],
+                'guests-title':        ['貴賓介紹', 'Distinguished Guest'],
                 'speakers-title':      ['講師介紹', 'Speakers'],
                 'speakers-subtitle':   ['依議程順序排列', 'Listed in agenda order'],
                 'agenda-title':        ['會議議程', 'Conference Agenda'],
