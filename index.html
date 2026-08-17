@@ -1878,6 +1878,67 @@
         /* ══ 嵌入式報名表單 ══ */
         #register-section { background: var(--bg-light); }
 
+        .registration-capacity-alert {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            border: 1px solid #f59e0b;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%);
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.12);
+            color: #7c2d12;
+        }
+
+        .registration-capacity-alert .capacity-alert-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 42px;
+            background: #ea580c;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .capacity-alert-title {
+            margin: 0 0 3px;
+            color: #9a3412;
+            font-size: 17px;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .capacity-alert-text {
+            margin: 0;
+            color: #7c2d12;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .hero-capacity-alert {
+            max-width: 680px;
+            margin: 22px 0 0;
+        }
+
+        .register-capacity-alert {
+            max-width: 720px;
+            margin: 0 auto 24px;
+        }
+
+        @media (max-width: 480px) {
+            .registration-capacity-alert {
+                align-items: flex-start;
+                padding: 14px;
+            }
+
+            .capacity-alert-title {
+                font-size: 16px;
+            }
+        }
+
         .reg-form-wrap {
             background: #fff;
             border-radius: 16px;
@@ -5600,6 +5661,13 @@ body.lang-en .hero-left {
                             </div>
                         </div>
                     </div>
+                    <div class="registration-capacity-alert hero-capacity-alert" role="status" aria-live="polite">
+                        <div class="capacity-alert-icon" aria-hidden="true"><i class="fas fa-fire"></i></div>
+                        <div>
+                            <p class="capacity-alert-title" id="hero-capacity-title">報名即將額滿｜目前僅剩 8 席</p>
+                            <p class="capacity-alert-text" id="hero-capacity-text">名額額滿即提前截止報名，請儘早完成報名。報名資格仍以主辦單位審核及確認信為準。</p>
+                        </div>
+                    </div>
                     <div class="hero-actions">
                         <button class="btn btn-primary" id="register-btn" onclick="scrollToRegForm()">
                             <i class="fas fa-edit"></i>
@@ -5702,6 +5770,13 @@ body.lang-en .hero-left {
                 <div class="section-title">
                     <h2 id="reg-section-title">線上報名</h2>
                     <p id="reg-section-subtitle">填寫下方表單完成報名，資料將直接寫入系統</p>
+                </div>
+                <div class="registration-capacity-alert register-capacity-alert" role="status" aria-live="polite">
+                    <div class="capacity-alert-icon" aria-hidden="true"><i class="fas fa-user-clock"></i></div>
+                    <div>
+                        <p class="capacity-alert-title" id="register-capacity-title">報名即將額滿｜目前僅剩 8 席</p>
+                        <p class="capacity-alert-text" id="register-capacity-text">名額額滿即提前截止報名，請儘早完成報名。報名資格仍以主辦單位審核及確認信為準。</p>
+                    </div>
                 </div>
                 <div class="reg-form-wrap" id="reg-form-wrap">
                     <!-- 表單由 JS 動態產生 -->
@@ -7995,6 +8070,10 @@ body.lang-en .hero-left {
                 'news-subtitle':       ['會議相關最新公告與資訊', 'Latest announcements and updates'],
                 'about-title':         ['會議介紹', 'About Conference'],
                 'about-subtitle':      ['了解本次會議的詳細內容', 'Learn about the conference details'],
+                'hero-capacity-title': ['報名即將額滿｜目前僅剩 8 席', 'Registration Almost Full｜Only 8 Seats Remaining'],
+                'hero-capacity-text':  ['名額額滿即提前截止報名，請儘早完成報名。報名資格仍以主辦單位審核及確認信為準。', 'Registration will close once capacity is reached. Participation is subject to organizer approval and confirmation.'],
+                'register-capacity-title': ['報名即將額滿｜目前僅剩 8 席', 'Registration Almost Full｜Only 8 Seats Remaining'],
+                'register-capacity-text':  ['名額額滿即提前截止報名，請儘早完成報名。報名資格仍以主辦單位審核及確認信為準。', 'Registration will close once capacity is reached. Participation is subject to organizer approval and confirmation.'],
                 'guests-title':        ['貴賓介紹', 'Distinguished Guest'],
                 'speakers-title':      ['講師介紹', 'Speakers'],
                 'speakers-subtitle':   ['依議程順序排列', 'Listed in agenda order'],
