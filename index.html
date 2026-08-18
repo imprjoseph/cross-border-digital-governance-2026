@@ -6032,8 +6032,8 @@ body.lang-en .hero-left {
     </div>
 
     <script src="assets/conference-config.js"></script>
-    <script src="assets/content-snapshot.js?v=20260814-1"></script>
-    <script src="assets/speaker-snapshot.js?v=20260818-1"></script>
+    <script src="assets/content-snapshot.js?v=20260818-2"></script>
+    <script src="assets/speaker-snapshot.js?v=20260818-2"></script>
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -6219,7 +6219,7 @@ body.lang-en .hero-left {
                 case 'getAgenda':
                     if (Array.isArray(payload) && payload.length > 0) {
                         const agendaSnapshotById = new Map((CONTENT_SNAPSHOT.agenda || []).map(item => [item.id, item]));
-                        const snapshotOverrideIds = new Set(['agenda-01', 'agenda-02', 'agenda-03']);
+                        const snapshotOverrideIds = new Set(['agenda-01', 'agenda-02', 'agenda-03', 'agenda-11']);
                         siteData.agenda = payload.map(item => {
                             const snapshot = agendaSnapshotById.get(item.id) || {};
                             if (snapshotOverrideIds.has(item.id)) return { ...item, ...snapshot };
@@ -7229,7 +7229,7 @@ body.lang-en .hero-left {
                 const data = await cachedApiFetch('getAgenda');
                 if (data.success && Array.isArray(data.data) && data.data.length > 0) {
                     const snapshotById = new Map((CONTENT_SNAPSHOT.agenda || []).map(item => [item.id, item]));
-                    const snapshotOverrideIds = new Set(['agenda-01', 'agenda-02', 'agenda-03']);
+                    const snapshotOverrideIds = new Set(['agenda-01', 'agenda-02', 'agenda-03', 'agenda-11']);
                     siteData.agenda = data.data.map(item => {
                         const snapshot = snapshotById.get(item.id) || {};
                         if (snapshotOverrideIds.has(item.id)) return { ...item, ...snapshot };

@@ -133,10 +133,10 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     id: "speaker-wang-yi-hui",
     name_zh: "王怡惠", name_en: "王怡惠",
     title_zh: "場次四與談人", title_en: "Panelist, Session 4",
-    organization_zh: "台灣經濟研究院研究員、前NCC委員", organization_en: "Researcher, Taiwan Institute of Economic Research; Former NCC Commissioner",
-    short_bio_zh: "現任台灣經濟研究院研究員，專長為產業經濟、電信政策與競爭政策，曾任國家通訊傳播委員會委員。",
-    short_bio_en: "Researcher at the Taiwan Institute of Economic Research and former Commissioner of the National Communications Commission.",
-    full_bio_zh: "財團法人台灣經濟研究院研究員，曾任花旗銀行、德意志銀行助理副總裁及全球策略管理顧問公司投資經理，具備產業與金融實務背景。專長為產業經濟、電信政策與競爭政策，曾任國家通訊傳播委員會（NCC）委員（2022至2026年），主持多項通傳產業財務與監理政策委託研究。", full_bio_en: "", photo_url: "assets/speakers/speaker-wang-yi-hui.webp", sort_order: 16, is_visible: "true"
+    organization_zh: "台灣經濟研究院副研究員、前NCC委員", organization_en: "Associate Researcher, Taiwan Institute of Economic Research; Former NCC Commissioner",
+    short_bio_zh: "現任台灣經濟研究院副研究員，專長為產業經濟、電信政策與競爭政策，曾任國家通訊傳播委員會委員。",
+    short_bio_en: "Associate Researcher at the Taiwan Institute of Economic Research and former Commissioner of the National Communications Commission.",
+    full_bio_zh: "財團法人台灣經濟研究院副研究員，曾任花旗銀行、德意志銀行助理副總裁及全球策略管理顧問公司投資經理，具備產業與金融實務背景。專長為產業經濟、電信政策與競爭政策，曾任國家通訊傳播委員會（NCC）委員（2022至2026年），主持多項通傳產業財務與監理政策委託研究。", full_bio_en: "", photo_url: "assets/speakers/speaker-wang-yi-hui.webp", sort_order: 16, is_visible: "true"
   },
   {
     id: "speaker-liu-li-chiu",
