@@ -73,7 +73,7 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     organization_zh: "台北市電腦公會「AI大聯盟」會長", organization_en: "Chair, AI Alliance, Taipei Computer Association",
     short_bio_zh: "現任台北市電腦公會「AI大聯盟」會長，長期關注台灣AI產業發展、算力政策與軟硬體生態系整合。",
     short_bio_en: "Chair of the AI Alliance at the Taipei Computer Association and panelist in the AI sovereignty session.",
-    full_bio_zh: "台北市電腦公會「AI大聯盟」會長，長期關注台灣AI產業發展、算力政策與軟硬體生態系整合，橫跨資訊產業界與政策倡議兩端。積極推動產業界與政府之間的AI政策對話，協助中小企業導入AI應用，是台灣資訊產業界推動AI普及化與產業升級的重要代表人物之一。", full_bio_en: "", photo_url: "assets/speakers/speaker-wu-han-chang.webp?v=20260811-6", sort_order: 8, is_visible: "true"
+    full_bio_zh: "台北市電腦公會「AI大聯盟」會長，長期關注台灣AI產業發展、算力政策與軟硬體生態系整合，橫跨資訊產業界與政策倡議兩端。積極推動產業界與政府之間的AI政策對話，協助中小企業導入AI應用，是台灣資訊產業界推動AI普及化與產業升級的重要代表人物之一。", full_bio_en: "", photo_url: "assets/speakers/speaker-wu-han-chang.webp?v=20260818-1", sort_order: 8, is_visible: "true"
   },
   {
     id: "speaker-hsiao-ping",
