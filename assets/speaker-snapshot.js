@@ -98,9 +98,9 @@ window.CONFERENCE_SPEAKERS_SNAPSHOT = [
     name_zh: "魏惠珍", name_en: "魏惠珍",
     title_zh: "場次三與談人", title_en: "Panelist, Session 3",
     organization_zh: "台灣線上影視產業協會理事長", organization_en: "Chair, Taiwan OTT Association",
-    short_bio_zh: "現任中華電信副總經理、Hami Video副總經理及台灣線上影視產業協會理事長，長期參與線上影視政策、跨平台合作與版權保護倡議。",
-    short_bio_en: "Vice President of Chunghwa Telecom and Hami Video, and Chair of the Taiwan OTT Association. She has extensive experience in online video policy, cross-platform cooperation, and copyright protection.",
-    full_bio_zh: "中華電信副總經理，兼任Hami Video副總經理，現任社團法人台灣線上影視產業協會（台灣OTT協會）理事長，橫跨電信與影視娛樂雙領域。深耕電信與OTT影音產業多年，長期參與台灣線上影視內容產業政策、跨平台合作與版權保護相關倡議，對本土影視內容產業之數位轉型與國際布局多所著力。", full_bio_en: "", photo_url: "assets/speakers/speaker-wei-hui-chen.webp?v=20260811-5", sort_order: 12, is_visible: "true"
+    short_bio_zh: "現任中華電信副總經理及台灣線上影視產業協會理事長，長期參與線上影視政策、跨平台合作與版權保護倡議。",
+    short_bio_en: "Vice President of Chunghwa Telecom and Chair of the Taiwan OTT Association. She has extensive experience in online video policy, cross-platform cooperation, and copyright protection.",
+    full_bio_zh: "中華電信副總經理，現任社團法人台灣線上影視產業協會（台灣OTT協會）理事長，橫跨電信與影視娛樂雙領域。深耕電信與OTT影音產業多年，長期參與台灣線上影視內容產業政策、跨平台合作與版權保護相關倡議，對本土影視內容產業之數位轉型與國際布局多所著力。", full_bio_en: "", photo_url: "assets/speakers/speaker-wei-hui-chen.webp?v=20260811-5", sort_order: 12, is_visible: "true"
   },
   {
     id: "speaker-chen-i-mei",
